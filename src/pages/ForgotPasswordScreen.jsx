@@ -12,9 +12,8 @@ import AppUtils from '../utils/AppUtils';
 import Card from '../components/Card';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
+import { unsecureComponent } from '../components/UnsecureComponent';
 import { useState } from 'react';
-import { withContext } from '../app/datastores/RootStoreContext';
-import { withRouter } from 'react-router';
 
 const ForgotPasswordScreen = (props) => {
   const [formValues, setFormValues] = useState({
@@ -45,11 +44,11 @@ const ForgotPasswordScreen = (props) => {
         );
         props.history.replace(RouteConstants.LOGIN);
       })
-      .catch((response) => {
+      .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
             title: 'Reset password failed',
-            description: response.error.message,
+            description: error.message,
           })
         );
       });
@@ -111,4 +110,4 @@ const ForgotPasswordScreen = (props) => {
   );
 };
 
-export default withRouter(withContext(ForgotPasswordScreen));
+export default unsecureComponent(ForgotPasswordScreen);

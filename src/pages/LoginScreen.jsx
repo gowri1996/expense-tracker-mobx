@@ -9,14 +9,15 @@ import {
   Link,
   useToast,
 } from '@chakra-ui/react';
-import { Link as RouterLink, withRouter } from 'react-router-dom';
 
 import AppUtils from '../utils/AppUtils';
 import Card from '../components/Card';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
+import { Link as RouterLink } from 'react-router-dom';
+import { addQueryParamsToUrl } from '../utils/UrlUtils';
+import { unsecureComponent } from '../components/UnsecureComponent';
 import { useState } from 'react';
-import { withContext } from '../app/datastores/RootStoreContext';
 
 const LoginScreen = (props) => {
   const [formValues, setFormValues] = useState({
@@ -39,13 +40,18 @@ const LoginScreen = (props) => {
         password: formValues.password,
       })
       .then((response) => {
-        console.log(response.result);
+        const url = addQueryParamsToUrl(RouteConstants.REDIRECT, {
+          token: response.data.token,
+          refreshToken: response.data.refreshToken,
+        });
+        props.history.replace(url);
       })
-      .catch((response) => {
+      .catch((error) => {
+        console.log(error);
         toast(
           AppUtils.errorToastMessage({
             title: 'Login failed',
-            description: response.error.message,
+            description: error.message,
           })
         );
       });
@@ -123,4 +129,4 @@ const LoginScreen = (props) => {
   );
 };
 
-export default withRouter(withContext(LoginScreen));
+export default unsecureComponent(LoginScreen);

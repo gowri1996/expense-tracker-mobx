@@ -1,6 +1,7 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
 
 import Service from '../../api/Service';
+import { isEmpty } from 'lodash';
 
 class UserStore {
   firstName = null;
@@ -24,13 +25,18 @@ class UserStore {
       setUser: action,
       registerUser: action,
       loginUser: action,
+      resetPasswordUser: action,
+      getFullDetails: action,
+      refreshTokens: action,
     });
   }
 
   setUser = (user) => {
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
-    this.email = user.email;
+    if (isEmpty(user)) return;
+
+    if (!isEmpty(user.firstName)) this.firstName = user.firstName;
+    if (!isEmpty(user.lastName)) this.lastName = user.lastName;
+    if (!isEmpty(user.email)) this.email = user.email;
   };
 
   registerUser = async (request) => {
@@ -72,6 +78,42 @@ class UserStore {
   resetPasswordUser = async (request) => {
     this.isUserActionLoading = true;
     return Service.resetPasswordUserService(request).then(
+      (response) => {
+        runInAction(() => {
+          this.isUserActionLoading = false;
+        });
+        return Service.constructSuccessResponse(response);
+      },
+      (error) => {
+        runInAction(() => {
+          this.isUserActionLoading = false;
+        });
+        throw Service.constructErrorResponse(error);
+      }
+    );
+  };
+
+  getFullDetails = async () => {
+    this.isUserActionLoading = true;
+    return Service.getUserFullDetails().then(
+      (response) => {
+        runInAction(() => {
+          this.isUserActionLoading = false;
+        });
+        return Service.constructSuccessResponse(response);
+      },
+      (error) => {
+        runInAction(() => {
+          this.isUserActionLoading = false;
+        });
+        throw Service.constructErrorResponse(error);
+      }
+    );
+  };
+
+  refreshTokens = async () => {
+    this.isUserActionLoading = true;
+    return Service.refreshTokens().then(
       (response) => {
         runInAction(() => {
           this.isUserActionLoading = false;

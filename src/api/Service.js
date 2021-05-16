@@ -5,11 +5,11 @@ const service =
   process.env.REACT_APP_USE_LIVE_SERVICE === 'true' ? LiveService : MockService;
 
 const constructSuccessResponse = (result) => {
-  return { result };
+  return result;
 };
 
 const constructErrorResponse = (error) => {
-  return { error };
+  return error;
 };
 
 const registerUserService = (request) => {
@@ -24,12 +24,22 @@ const resetPasswordUserService = (request) => {
   return service.resetPasswordUserService(request);
 };
 
+const getUserFullDetails = () => {
+  return service.getUserFullDetails();
+};
+
+const refreshTokens = () => {
+  return service.refreshTokens();
+};
+
 const exportData = {
+  constructErrorResponse,
+  constructSuccessResponse,
   registerUserService,
   loginUserService,
   resetPasswordUserService,
-  constructErrorResponse,
-  constructSuccessResponse,
+  getUserFullDetails,
+  refreshTokens,
 };
 
 export default exportData;

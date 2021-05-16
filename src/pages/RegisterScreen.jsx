@@ -5,6 +5,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Link,
   useToast,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
@@ -13,8 +14,8 @@ import AppUtils from '../utils/AppUtils';
 import Card from '../components/Card';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
-import { withContext } from '../app/datastores/RootStoreContext';
-import { withRouter } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { unsecureComponent } from '../components/UnsecureComponent';
 
 const RegisterScreen = (props) => {
   const [formValues, setFormValues] = useState({
@@ -49,11 +50,11 @@ const RegisterScreen = (props) => {
         );
         props.history.replace(RouteConstants.LOGIN);
       })
-      .catch((response) => {
+      .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
             title: 'Registration failed',
-            description: response.error.message,
+            description: error.message,
           })
         );
       });
@@ -124,7 +125,12 @@ const RegisterScreen = (props) => {
                 }
               />
             </FormControl>
-            <Box mt={10} textAlign='center'>
+            <Box textAlign='left' pt={3}>
+              <Link as={RouterLink} to={RouteConstants.LOGIN} color='blue.500'>
+                Already have an account ?
+              </Link>
+            </Box>
+            <Box mt={7} textAlign='center'>
               <Button
                 type='submit'
                 colorScheme={'blue'}
@@ -141,4 +147,4 @@ const RegisterScreen = (props) => {
   );
 };
 
-export default withRouter(withContext(RegisterScreen));
+export default unsecureComponent(RegisterScreen);

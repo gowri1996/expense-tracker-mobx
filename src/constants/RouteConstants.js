@@ -1,7 +1,12 @@
+const appBase = '/';
+
 const routes = {
-  LOGIN: '/authentication/login',
-  REGISTER: '/authentication/register',
-  FORGOT_PASSWORD: '/authentication/forgot-password',
+  LOGIN: appBase,
+  REDIRECT_KEYWORD: 'redirect',
+  REGISTER: appBase + 'register',
+  FORGOT_PASSWORD: appBase + 'forgot-password',
+  REDIRECT: appBase + 'redirect',
+  DASHBOARD: appBase + 'dashboard',
 };
 
 export default routes;

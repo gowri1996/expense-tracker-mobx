@@ -16,10 +16,24 @@ const resetPasswordUserService = (request) => {
   });
 };
 
+const getUserFullDetails = () => {
+  return new Promise((resolve, reject) => {
+    resolve();
+  });
+};
+
+const refreshTokens = () => {
+  return new Promise((resolve, reject) => {
+    resolve();
+  });
+};
+
 const exportData = {
   registerUserService,
   loginUserService,
   resetPasswordUserService,
+  getUserFullDetails,
+  refreshTokens,
 };
 
 export default exportData;
