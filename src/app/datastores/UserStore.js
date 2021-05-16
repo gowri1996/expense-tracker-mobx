@@ -1,8 +1,6 @@
-import * as Service from '../../api/Service';
-
 import { action, makeObservable, observable, runInAction } from 'mobx';
 
-import { isEmpty } from 'lodash';
+import Service from '../../api/Service';
 
 class UserStore {
   firstName = null;
@@ -30,20 +28,19 @@ class UserStore {
   }
 
   setUser = (user) => {
-    if (isEmpty(user)) return;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.email = user.email;
   };
 
-  registerUser = async (user) => {
+  registerUser = async (request) => {
     this.isUserActionLoading = true;
-    return Service.registerUserService(user).then(
-      (userResponse) => {
+    return Service.registerUserService(request).then(
+      (response) => {
         runInAction(() => {
           this.isUserActionLoading = false;
         });
-        return Service.constructSuccessResponse(userResponse);
+        return Service.constructSuccessResponse(response);
       },
       (error) => {
         runInAction(() => {
@@ -54,14 +51,14 @@ class UserStore {
     );
   };
 
-  loginUser = async (user) => {
+  loginUser = async (request) => {
     this.isUserActionLoading = true;
-    return Service.loginUserService(user).then(
-      (userResponse) => {
-        runInAction((response) => {
+    return Service.loginUserService(request).then(
+      (response) => {
+        runInAction(() => {
           this.isUserActionLoading = false;
         });
-        return Service.constructSuccessResponse(userResponse);
+        return Service.constructSuccessResponse(response);
       },
       (error) => {
         runInAction(() => {
@@ -72,14 +69,14 @@ class UserStore {
     );
   };
 
-  resetPasswordUser = async (user) => {
+  resetPasswordUser = async (request) => {
     this.isUserActionLoading = true;
-    return Service.resetPasswordUserService(user).then(
-      (userResponse) => {
-        runInAction((response) => {
+    return Service.resetPasswordUserService(request).then(
+      (response) => {
+        runInAction(() => {
           this.isUserActionLoading = false;
         });
-        return Service.constructSuccessResponse(userResponse);
+        return Service.constructSuccessResponse(response);
       },
       (error) => {
         runInAction(() => {

@@ -8,6 +8,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 
+import AppUtils from '../utils/AppUtils';
 import Card from '../components/Card';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
@@ -30,22 +31,27 @@ const ForgotPasswordScreen = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.rootStore.user
+    props.rootStore.userStore
       .resetPasswordUser({
         email: formValues.email,
         password: formValues.password,
       })
-      .then((response) => {
+      .then(() => {
+        toast(
+          AppUtils.successToastMessage({
+            title: 'Reset password success',
+            description: 'Login using the credentials',
+          })
+        );
         props.history.replace(RouteConstants.LOGIN);
       })
       .catch((response) => {
-        toast({
-          title: 'Reset password failed',
-          position: 'top-right',
-          description: response.error.message,
-          status: 'error',
-          duration: 2000,
-        });
+        toast(
+          AppUtils.errorToastMessage({
+            title: 'Reset password failed',
+            description: response.error.message,
+          })
+        );
       });
   };
 
@@ -92,8 +98,8 @@ const ForgotPasswordScreen = (props) => {
               <Button
                 type='submit'
                 colorScheme={'blue'}
-                isDisabled={props.rootStore.user.isUserActionLoading}
-                isLoading={props.rootStore.user.isUserActionLoading}
+                isDisabled={props.rootStore.userStore.isUserActionLoading}
+                isLoading={props.rootStore.userStore.isUserActionLoading}
               >
                 Submit
               </Button>

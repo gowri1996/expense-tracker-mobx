@@ -3,16 +3,18 @@ import {
   Button,
   FormControl,
   FormLabel,
+  HStack,
   Heading,
   Input,
   Link,
   useToast,
 } from '@chakra-ui/react';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 
+import AppUtils from '../utils/AppUtils';
 import Card from '../components/Card';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
-import { Link as RouterLink } from 'react-router-dom';
 import { useState } from 'react';
 import { withContext } from '../app/datastores/RootStoreContext';
 
@@ -31,20 +33,21 @@ const LoginScreen = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.rootStore.user
+    props.rootStore.userStore
       .loginUser({
         email: formValues.email,
         password: formValues.password,
       })
-      .then((response) => {})
+      .then((response) => {
+        console.log(response.result);
+      })
       .catch((response) => {
-        toast({
-          title: 'Login failed',
-          position: 'top-right',
-          description: response.error.message,
-          status: 'error',
-          duration: 2000,
-        });
+        toast(
+          AppUtils.errorToastMessage({
+            title: 'Login failed',
+            description: response.error.message,
+          })
+        );
       });
   };
 
@@ -87,7 +90,14 @@ const LoginScreen = (props) => {
                 }
               />
             </FormControl>
-            <Box textAlign='right' pt={5} fontSize={15}>
+            <HStack pt={5} fontSize={15} justifyContent='space-between'>
+              <Link
+                as={RouterLink}
+                to={RouteConstants.REGISTER}
+                color='blue.500'
+              >
+                Don't have an account?
+              </Link>
               <Link
                 as={RouterLink}
                 to={RouteConstants.FORGOT_PASSWORD}
@@ -95,13 +105,13 @@ const LoginScreen = (props) => {
               >
                 Forgot password
               </Link>
-            </Box>
-            <Box mt={5} textAlign='center'>
+            </HStack>
+            <Box mt={7} textAlign='center'>
               <Button
                 type='submit'
                 colorScheme={'blue'}
-                isDisabled={props.rootStore.user.isUserActionLoading}
-                isLoading={props.rootStore.user.isUserActionLoading}
+                isDisabled={props.rootStore.userStore.isUserActionLoading}
+                isLoading={props.rootStore.userStore.isUserActionLoading}
               >
                 Sign In
               </Button>
@@ -113,4 +123,4 @@ const LoginScreen = (props) => {
   );
 };
 
-export default withContext(LoginScreen);
+export default withRouter(withContext(LoginScreen));

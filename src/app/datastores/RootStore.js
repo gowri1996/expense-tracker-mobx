@@ -3,8 +3,8 @@ import UserStore from './UserStore';
 
 class RootStore {
   constructor() {
-    this.user = new UserStore(this);
-    this.theme = new ThemeStore(this);
+    this.userStore = new UserStore(this);
+    this.themeStore = new ThemeStore(this);
   }
 }
 

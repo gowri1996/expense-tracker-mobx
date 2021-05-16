@@ -1,5 +1,5 @@
-import * as LiveService from './live/LiveService';
-import * as MockService from './mock/MockService';
+import LiveService from './live/LiveService';
+import MockService from './mock/MockService';
 
 const service =
   process.env.REACT_APP_USE_LIVE_SERVICE === 'true' ? LiveService : MockService;
@@ -12,22 +12,24 @@ const constructErrorResponse = (error) => {
   return { error };
 };
 
-const registerUserService = (user) => {
-  return service.registerUserService(user);
+const registerUserService = (request) => {
+  return service.registerUserService(request);
 };
 
-const loginUserService = (user) => {
-  return service.loginUserService(user);
+const loginUserService = (request) => {
+  return service.loginUserService(request);
 };
 
-const resetPasswordUserService = (user) => {
-  return service.resetPasswordUserService(user);
+const resetPasswordUserService = (request) => {
+  return service.resetPasswordUserService(request);
 };
 
-export {
+const exportData = {
   registerUserService,
   loginUserService,
   resetPasswordUserService,
   constructErrorResponse,
   constructSuccessResponse,
 };
+
+export default exportData;

@@ -1,19 +1,25 @@
-const registerUserService = (user) => {
+const registerUserService = (request) => {
   return new Promise((resolve, reject) => {
-    resolve(user);
+    resolve(request);
   });
 };
 
-const loginUserService = (user) => {
+const loginUserService = (request) => {
   return new Promise((resolve, reject) => {
-    resolve(user);
+    resolve(request);
   });
 };
 
-const resetPasswordUserService = (user) => {
+const resetPasswordUserService = (request) => {
   return new Promise((resolve, reject) => {
-    resolve(user);
+    resolve(request);
   });
 };
 
-export { registerUserService, loginUserService, resetPasswordUserService };
+const exportData = {
+  registerUserService,
+  loginUserService,
+  resetPasswordUserService,
+};
+
+export default exportData;

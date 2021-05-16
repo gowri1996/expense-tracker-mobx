@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
+import AppUtils from '../utils/AppUtils';
 import Card from '../components/Card';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
@@ -32,23 +33,29 @@ const RegisterScreen = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.rootStore.user
+    props.rootStore.userStore
       .registerUser({
         firstName: formValues.firstName,
         lastName: formValues.lastName,
         email: formValues.email,
+        password: formValues.password,
       })
       .then(() => {
+        toast(
+          AppUtils.successToastMessage({
+            title: 'Registration success',
+            description: 'Login using the credentials',
+          })
+        );
         props.history.replace(RouteConstants.LOGIN);
       })
       .catch((response) => {
-        toast({
-          title: 'Registration failed',
-          position: 'top-right',
-          description: response.error.message,
-          status: 'error',
-          duration: 2000,
-        });
+        toast(
+          AppUtils.errorToastMessage({
+            title: 'Registration failed',
+            description: response.error.message,
+          })
+        );
       });
   };
 
@@ -121,8 +128,8 @@ const RegisterScreen = (props) => {
               <Button
                 type='submit'
                 colorScheme={'blue'}
-                isDisabled={props.rootStore.user.isUserActionLoading}
-                isLoading={props.rootStore.user.isUserActionLoading}
+                isDisabled={props.rootStore.userStore.isUserActionLoading}
+                isLoading={props.rootStore.userStore.isUserActionLoading}
               >
                 Sign Up
               </Button>
