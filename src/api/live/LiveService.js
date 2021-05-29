@@ -28,12 +28,19 @@ const refreshTokens = () => {
   });
 };
 
+const logoutUser = () => {
+  return new Promise((resolve, reject) => {
+    resolve();
+  });
+};
+
 const exportData = {
   registerUserService,
   loginUserService,
   resetPasswordUserService,
   getUserFullDetails,
   refreshTokens,
+  logoutUser,
 };
 
 export default exportData;

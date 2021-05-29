@@ -1,6 +1,7 @@
 import { action, makeObservable, observable, runInAction } from 'mobx';
 
 import Service from '../../api/Service';
+import { deleteToken } from '../../utils/AuthUtils';
 import { isEmpty } from 'lodash';
 
 class UserStore {
@@ -28,8 +29,15 @@ class UserStore {
       resetPasswordUser: action,
       getFullDetails: action,
       refreshTokens: action,
+      logoutUser: action,
     });
   }
+
+  resetUser = () => {
+    this.firstName = null;
+    this.lastName = null;
+    this.email = null;
+  };
 
   setUser = (user) => {
     if (isEmpty(user)) return;
@@ -118,6 +126,26 @@ class UserStore {
         runInAction(() => {
           this.isUserActionLoading = false;
         });
+        return Service.constructSuccessResponse(response);
+      },
+      (error) => {
+        runInAction(() => {
+          this.isUserActionLoading = false;
+        });
+        throw Service.constructErrorResponse(error);
+      }
+    );
+  };
+
+  logoutUser = async () => {
+    this.isUserActionLoading = true;
+    return Service.logoutUser().then(
+      (response) => {
+        runInAction(() => {
+          this.isUserActionLoading = false;
+          this.resetUser();
+        });
+        deleteToken();
         return Service.constructSuccessResponse(response);
       },
       (error) => {

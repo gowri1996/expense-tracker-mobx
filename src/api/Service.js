@@ -32,6 +32,10 @@ const refreshTokens = () => {
   return service.refreshTokens();
 };
 
+const logoutUser = () => {
+  return service.logoutUser();
+};
+
 const exportData = {
   constructErrorResponse,
   constructSuccessResponse,
@@ -40,6 +44,7 @@ const exportData = {
   resetPasswordUserService,
   getUserFullDetails,
   refreshTokens,
+  logoutUser,
 };
 
 export default exportData;

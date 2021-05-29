@@ -4,13 +4,7 @@ const PageLoader = (props) => {
   return (
     <Flex minHeight='70vh' align='center'>
       <Box textAlign='center'>
-        <Spinner
-          thickness={3}
-          speed='0.7s'
-          emptyColor='gray.200'
-          color='blue.500'
-          size='xl'
-        />
+        <Spinner thickness={3} speed='0.7s' size='xl' />
         <Text pt={1}>{props.title}</Text>
       </Box>
     </Flex>

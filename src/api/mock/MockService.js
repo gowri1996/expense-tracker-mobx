@@ -69,14 +69,14 @@ const loginUserService = (request) => {
 
         const token = jwt.sign({ email: request.email }, 'token', {
           expiresIn: '24h',
-          issuer: 'daily-user-tracker',
+          issuer: 'expense-tracker',
         });
         const refreshToken = jwt.sign(
           { email: request.email },
           'refreshToken',
           {
             expiresIn: '7d',
-            issuer: 'daily-user-tracker',
+            issuer: 'expense-tracker',
           }
         );
 
@@ -180,7 +180,6 @@ const refreshTokens = (refreshToken) => {
           return;
         }
 
-        console.log(refreshToken);
         const user = localUsers.find(
           (localUser) => localUser.refreshToken === refreshToken
         );
@@ -196,7 +195,7 @@ const refreshTokens = (refreshToken) => {
 
         const token = jwt.sign({ email: user.email }, 'token', {
           expiresIn: '24h',
-          issuer: 'daily-user-tracker',
+          issuer: 'expense-tracker',
         });
 
         // store new token and refreshToken
@@ -215,12 +214,42 @@ const refreshTokens = (refreshToken) => {
   });
 };
 
+const logoutUser = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        let localUsers = JSON.parse(localStorage.getItem('users'));
+
+        const token = cookies.load(StringConstants.COOKIE_TOKEN);
+        const user = localUsers.find((localUser) => localUser.token === token);
+        if (isEmpty(user)) {
+          reject({ message: 'Invalid credentials', status: 400 });
+          return;
+        }
+
+        user.token = null;
+        user.refreshToken = null;
+
+        localStorage.setItem('users', JSON.stringify(localUsers));
+        resolve({
+          status: 200,
+          message: 'Logged out successfully',
+          data: {},
+        });
+      } catch (err) {
+        reject(err);
+      }
+    }, 1000);
+  });
+};
+
 const exportData = {
   registerUserService,
   loginUserService,
   resetPasswordUserService,
   getUserFullDetails,
   refreshTokens,
+  logoutUser,
 };
 
 export default exportData;

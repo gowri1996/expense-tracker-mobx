@@ -6,7 +6,8 @@ const routes = {
   REGISTER: appBase + 'register',
   FORGOT_PASSWORD: appBase + 'forgot-password',
   REDIRECT: appBase + 'redirect',
-  DASHBOARD: appBase + 'dashboard',
+  OVERVIEW: appBase + 'overview',
+  ANALYTICS: appBase + 'analytics',
 };
 
 export default routes;

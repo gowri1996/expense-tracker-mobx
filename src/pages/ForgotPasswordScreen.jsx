@@ -13,6 +13,7 @@ import Card from '../components/Card';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
 import { unsecureComponent } from '../components/UnsecureComponent';
+import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 
 const ForgotPasswordScreen = (props) => {
@@ -22,6 +23,7 @@ const ForgotPasswordScreen = (props) => {
   });
 
   const toast = useToast();
+  const history = useHistory();
 
   const handleFormInputChange = (name, value) => {
     const data = { ...formValues, [name]: value };
@@ -42,7 +44,7 @@ const ForgotPasswordScreen = (props) => {
             description: 'Login using the credentials',
           })
         );
-        props.history.replace(RouteConstants.LOGIN);
+        history.replace(RouteConstants.LOGIN);
       })
       .catch((error) => {
         toast(
@@ -59,53 +61,54 @@ const ForgotPasswordScreen = (props) => {
       <Helmet>
         <title>Forgot Password</title>
       </Helmet>
-      <Card mt={'100px !important'} p={4} maxWidth={500}>
-        <Box p={4} textAlign='center'>
-          <Heading size='lg'>Forgot Password</Heading>
-        </Box>
-        <Box p={4} textAlign='left'>
-          <form onSubmit={onSubmit}>
-            <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
-              <Input
-                name='email'
-                type='email'
-                placeholder='Enter your email address'
-                onChange={(evt) =>
-                  handleFormInputChange(
-                    evt.currentTarget.name,
-                    evt.currentTarget.value
-                  )
-                }
-              />
-            </FormControl>
-            <FormControl mt={4} isRequired>
-              <FormLabel>New Password</FormLabel>
-              <Input
-                name='password'
-                type='password'
-                placeholder='Enter your password'
-                onChange={(evt) =>
-                  handleFormInputChange(
-                    evt.currentTarget.name,
-                    evt.currentTarget.value
-                  )
-                }
-              />
-            </FormControl>
-            <Box mt={8} textAlign='center'>
-              <Button
-                type='submit'
-                colorScheme={'blue'}
-                isDisabled={props.rootStore.userStore.isUserActionLoading}
-                isLoading={props.rootStore.userStore.isUserActionLoading}
-              >
-                Submit
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Card>
+      <Box style={{ marginTop: '15vh' }} width={500} maxWidth={500}>
+        <Card p={4}>
+          <Box p={4} textAlign='center'>
+            <Heading size='lg'>Forgot Password</Heading>
+          </Box>
+          <Box p={4} textAlign='left'>
+            <form onSubmit={onSubmit}>
+              <FormControl isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  name='email'
+                  type='email'
+                  placeholder='Enter your email address'
+                  onChange={(evt) =>
+                    handleFormInputChange(
+                      evt.currentTarget.name,
+                      evt.currentTarget.value
+                    )
+                  }
+                />
+              </FormControl>
+              <FormControl mt={4} isRequired>
+                <FormLabel>New Password</FormLabel>
+                <Input
+                  name='password'
+                  type='password'
+                  placeholder='Enter your password'
+                  onChange={(evt) =>
+                    handleFormInputChange(
+                      evt.currentTarget.name,
+                      evt.currentTarget.value
+                    )
+                  }
+                />
+              </FormControl>
+              <Box mt={8} textAlign='center'>
+                <Button
+                  type='submit'
+                  isDisabled={props.rootStore.userStore.isUserActionLoading}
+                  isLoading={props.rootStore.userStore.isUserActionLoading}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </form>
+          </Box>
+        </Card>
+      </Box>
     </>
   );
 };

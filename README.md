@@ -1,2 +1,3 @@
-# daily-user-tracker
-Daily tracking of user provided data
+# expense-tracker
+
+Expense tracker for user

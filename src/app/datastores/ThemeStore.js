@@ -1,11 +1,9 @@
 import { makeObservable, observable } from 'mobx';
 
-import { extendTheme } from '@chakra-ui/react';
+import themes from './themes';
 
 class ThemeStore {
-  internalTheme = extendTheme({
-    config: { useSystemColorMode: true },
-  });
+  internalTheme = themes;
 
   rootStore = null;
 

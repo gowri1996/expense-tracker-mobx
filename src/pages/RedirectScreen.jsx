@@ -7,6 +7,7 @@ import {
   getAllParamsAsStringFromUrl,
   getParamsFromUrl,
 } from '../utils/UrlUtils';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import PageLoader from '../components/PageLoader';
 import RouteConstants from '../constants/RouteConstants';
@@ -15,9 +16,11 @@ import cookies from 'react-cookies';
 import { isEmpty } from 'lodash';
 import { useEffect } from 'react';
 import { withContext } from '../app/datastores/RootStoreContext';
-import { withRouter } from 'react-router';
 
 const RedirectScreen = (props) => {
+  const history = useHistory();
+  const location = useLocation();
+
   useEffect(() => {
     const redirectUser = (redirectUrl) => {
       const user = getUserDataFromCookie();
@@ -28,10 +31,10 @@ const RedirectScreen = (props) => {
             props.rootStore.userStore.setUser(response.data);
 
             if (redirectUrl) {
-              props.history.replace(redirectUrl);
+              history.replace(redirectUrl);
               return;
             }
-            props.history.replace(RouteConstants.DASHBOARD);
+            history.replace(RouteConstants.OVERVIEW);
           })
           .catch((error) => {
             console.log(error);
@@ -61,30 +64,30 @@ const RedirectScreen = (props) => {
                 .catch((error) => {
                   console.log(error);
                   deleteToken();
-                  props.history.replace(RouteConstants.LOGIN);
+                  history.replace(RouteConstants.LOGIN);
                 });
             } else {
               deleteToken();
-              props.history.replace(RouteConstants.LOGIN);
+              history.replace(RouteConstants.LOGIN);
             }
           });
       } else {
-        props.history.replace(RouteConstants.LOGIN);
+        history.replace(RouteConstants.LOGIN);
       }
     };
 
-    if (props.location.search) {
+    if (location.search) {
       const token = getParamsFromUrl(
-        props.location.search,
+        location.search,
         StringConstants.COOKIE_TOKEN
       );
       const refreshToken = getParamsFromUrl(
-        props.location.search,
+        location.search,
         StringConstants.COOKIE_REFRESH_TOKEN
       );
 
       const redirect = getParamsFromUrl(
-        props.location.search,
+        location.search,
         RouteConstants.REDIRECT_KEYWORD
       );
       if (!isEmpty(token) && !isEmpty(refreshToken)) {
@@ -96,7 +99,7 @@ const RedirectScreen = (props) => {
         });
         redirectUser();
       } else if (!isEmpty(redirect)) {
-        const otherParams = getAllParamsAsStringFromUrl(props.location.search, [
+        const otherParams = getAllParamsAsStringFromUrl(location.search, [
           RouteConstants.REDIRECT_KEYWORD,
         ]);
         redirectUser(redirect + otherParams);
@@ -104,11 +107,11 @@ const RedirectScreen = (props) => {
     } else if (isAuthenticatedUser()) {
       redirectUser();
     } else {
-      props.history.replace(RouteConstants.LOGIN);
+      history.replace(RouteConstants.LOGIN);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <PageLoader title='Loading your account ...' />;
 };
 
-export default withRouter(withContext(RedirectScreen));
+export default withContext(RedirectScreen);
