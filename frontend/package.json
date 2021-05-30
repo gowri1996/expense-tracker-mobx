@@ -27,9 +27,11 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
+    "clean": "rm -rf ./build",
+    "build": "yarn clean && react-app-rewired build",
+    "build-server": "yarn build && (cd ../server && yarn start)",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {

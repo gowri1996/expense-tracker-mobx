@@ -15,8 +15,8 @@ module.exports = {
             [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
           },
         },
-        threshold: 10240,
-        minRatio: 0.8,
+        threshold: 0,
+        minRatio: 1,
         deleteOriginalAssets: false,
       })
     ),
@@ -25,8 +25,8 @@ module.exports = {
         filename: '[path][base].gz',
         algorithm: 'gzip',
         test: /\.(js|css|html|svg)$/,
-        threshold: 10240,
-        minRatio: 0.8,
+        threshold: 0,
+        minRatio: 1,
         deleteOriginalAssets: false,
       })
     )
