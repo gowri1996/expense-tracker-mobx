@@ -3,7 +3,7 @@ import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 
 import RouteConstants from '../constants/RouteConstants';
 import { isAuthenticatedUser } from '../utils/AuthUtils';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash.isempty';
 import { observer } from 'mobx-react';
 import { withContext } from '../app/datastores/RootStoreContext';
 

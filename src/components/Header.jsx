@@ -17,7 +17,7 @@ import AppUtils from '../utils/AppUtils';
 import React from 'react';
 import RouteConstants from '../constants/RouteConstants';
 import ThemeConstants from '../constants/ThemeConstants';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash.isempty';
 import { useHistory } from 'react-router-dom';
 import { withContext } from '../app/datastores/RootStoreContext';
 
@@ -48,7 +48,7 @@ const Header = (props) => {
       height='50px'
       width='full'
       position='sticky'
-      boxShadow='md'
+      boxShadow='sm'
       backgroundColor={
         colorMode === ThemeConstants.LIGHT_THEME
           ? ThemeConstants.LIGHT_THEME_PRIMARY_COLOR
@@ -59,7 +59,7 @@ const Header = (props) => {
     >
       <Box
         textAlign='right'
-        color={colorMode === ThemeConstants.LIGHT_THEME ? 'black' : 'white'}
+        color={colorMode === ThemeConstants.LIGHT_THEME ? '#121212' : '#D3D3D3'}
       >
         <Tooltip label='Toggle light/dark theme' fontSize='xs' placement='left'>
           <IconButton

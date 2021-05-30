@@ -12,13 +12,12 @@ const button = {
         ThemeConstants.LIGHT_THEME_PRIMARY_HOVER_COLOR,
         ThemeConstants.DARK_THEME_PRIMARY_HOVER_COLOR
       )(props);
-      const color = mode('black', 'white')(props);
+      const color = mode('#121212', '#F8F8F8')(props);
       return {
         bg,
         _active: {
           bg,
           borderColor: color,
-          boxShadow: `0 0 0 1px ${color}`,
         },
         _focus: {
           bg,

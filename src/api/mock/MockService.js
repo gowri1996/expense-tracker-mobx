@@ -1,4 +1,3 @@
-import { isArray, isEmpty } from 'lodash';
 import {
   isAuthenticatedUser,
   isRefreshTokenValid,
@@ -7,6 +6,7 @@ import {
 import StringConstants from '../../constants/StringConstants';
 import bcrypt from 'bcryptjs';
 import cookies from 'react-cookies';
+import isEmpty from 'lodash.isempty';
 import jwt from 'jsonwebtoken';
 
 const generateHashPassword = (passwordPlainText) => {
@@ -23,7 +23,7 @@ const registerUserService = (request) => {
     setTimeout(() => {
       try {
         let localUsers = JSON.parse(localStorage.getItem('users'));
-        if (!isArray(localUsers)) {
+        if (!Array.isArray(localUsers)) {
           localUsers = [];
           localStorage.setItem('users', JSON.stringify(localUsers));
         }
@@ -55,7 +55,7 @@ const loginUserService = (request) => {
     setTimeout(() => {
       try {
         let localUsers = JSON.parse(localStorage.getItem('users'));
-        if (!isArray(localUsers)) {
+        if (!Array.isArray(localUsers)) {
           reject({ message: 'Invalid Email / Password' });
           return;
         }
@@ -102,7 +102,7 @@ const resetPasswordUserService = (request) => {
     setTimeout(() => {
       try {
         let localUsers = JSON.parse(localStorage.getItem('users'));
-        if (!isArray(localUsers)) {
+        if (!Array.isArray(localUsers)) {
           reject({ message: 'Invalid Email / Password' });
           return;
         }
@@ -135,7 +135,7 @@ const getUserFullDetails = () => {
     setTimeout(() => {
       try {
         let localUsers = JSON.parse(localStorage.getItem('users'));
-        if (!isArray(localUsers)) {
+        if (!Array.isArray(localUsers)) {
           reject({ message: 'Invalid Email / Password', status: 400 });
           return;
         }
@@ -175,7 +175,7 @@ const refreshTokens = (refreshToken) => {
     setTimeout(() => {
       try {
         let localUsers = JSON.parse(localStorage.getItem('users'));
-        if (!isArray(localUsers)) {
+        if (!Array.isArray(localUsers)) {
           reject({ message: 'Invalid Email / Password' });
           return;
         }

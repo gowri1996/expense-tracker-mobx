@@ -7,7 +7,9 @@ const OverviewScreen = () => {
   return (
     <Box p={4}>
       <Box>
-        <Heading>Overview</Heading>
+        <Heading fontWeight={300} letterSpacing={0.5}>
+          Overview
+        </Heading>
       </Box>
     </Box>
   );

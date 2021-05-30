@@ -2,7 +2,7 @@ import { action, makeObservable, observable, runInAction } from 'mobx';
 
 import Service from '../../api/Service';
 import { deleteToken } from '../../utils/AuthUtils';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash.isempty';
 
 class UserStore {
   firstName = null;

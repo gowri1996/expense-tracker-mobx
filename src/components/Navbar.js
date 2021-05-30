@@ -4,7 +4,7 @@ import AppUtils from '../utils/AppUtils';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import ThemeConstants from '../constants/ThemeConstants';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash.isempty';
 import { useLocation } from 'react-router-dom';
 import { withContext } from '../app/datastores/RootStoreContext';
 
@@ -20,7 +20,7 @@ const Navbar = (props) => {
       position='sticky'
       top='50px'
       h='calc(100vh - 50px)'
-      boxShadow='md'
+      boxShadow='sm'
       overflowY='auto'
       width={{
         md: '100px',
@@ -36,7 +36,7 @@ const Navbar = (props) => {
         xl: 'block',
         xxl: 'block',
       }}
-      bg={colorMode === ThemeConstants.LIGHT_THEME ? 'white' : 'gray.900'}
+      bg={colorMode === ThemeConstants.LIGHT_THEME ? '#FCFCFC' : '#181818'}
     >
       <Box
         display={{
@@ -62,8 +62,8 @@ const Navbar = (props) => {
                 bg={
                   nav.ROUTE === location.pathname
                     ? colorMode === ThemeConstants.LIGHT_THEME
-                      ? 'gray.200'
-                      : 'gray.600'
+                      ? '#EDEEEF'
+                      : '#080808'
                     : undefined
                 }
               >

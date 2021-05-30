@@ -1,6 +1,6 @@
 import StringConstants from '../constants/StringConstants';
 import cookies from 'react-cookies';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash.isempty';
 import jwt from 'jsonwebtoken';
 
 const isTokenValid = (token) => {

@@ -7,7 +7,9 @@ const AnalyticsScreen = () => {
   return (
     <Box p={4}>
       <Box>
-        <Heading>Analytics</Heading>
+        <Heading fontWeight={300} letterSpacing={0.5}>
+          Analytics
+        </Heading>
       </Box>
     </Box>
   );

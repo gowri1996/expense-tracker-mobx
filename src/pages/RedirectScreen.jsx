@@ -13,7 +13,7 @@ import PageLoader from '../components/PageLoader';
 import RouteConstants from '../constants/RouteConstants';
 import StringConstants from '../constants/StringConstants';
 import cookies from 'react-cookies';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash.isempty';
 import { useEffect } from 'react';
 import { withContext } from '../app/datastores/RootStoreContext';
 
