@@ -1,3 +1,3 @@
 # expense-tracker
 
-Expense tracker for user
+Expense tracker app
