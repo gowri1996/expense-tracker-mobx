@@ -1,24 +1,26 @@
 import {
   Box,
   Button,
+  Flex,
   Icon,
   IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  Spacer,
   Tooltip,
   useColorMode,
   useToast,
 } from '@chakra-ui/react';
-import { FaHamburger, FaMoon, FaSun } from 'react-icons/fa';
+import { FaHamburger, FaInfo, FaMoon, FaSun } from 'react-icons/fa';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 
 import AppUtils from '../utils/AppUtils';
 import React from 'react';
 import RouteConstants from '../constants/RouteConstants';
 import ThemeConstants from '../constants/ThemeConstants';
 import isEmpty from 'lodash.isempty';
-import { useHistory } from 'react-router-dom';
 import { withContext } from '../app/datastores/RootStoreContext';
 
 const Header = (props) => {
@@ -57,42 +59,63 @@ const Header = (props) => {
       top={0}
       zIndex={1}
     >
-      <Box
-        textAlign='right'
+      <Flex
         color={colorMode === ThemeConstants.LIGHT_THEME ? '#121212' : '#D3D3D3'}
       >
-        <Tooltip label='Toggle light/dark theme' fontSize='xs' placement='left'>
+        <Box>
           <IconButton
             aria-label='themeIcon'
-            icon={
-              colorMode === ThemeConstants.LIGHT_THEME ? <FaSun /> : <FaMoon />
-            }
+            as={RouterLink}
+            to={RouteConstants.LOGIN}
+            icon={<FaInfo />}
             mt={1}
             mr={2}
             size='md'
-            onClick={() => {
-              toggleColorMode();
-            }}
           />
-        </Tooltip>
-        {!isEmpty(props.rootStore.userStore.email) && (
-          <Menu>
-            <Tooltip label='Actions' fontSize='xs' placement='left'>
-              <MenuButton
-                as={Button}
-                aria-label='actions'
-                size='md'
-                isLoading={props.rootStore.userStore.isUserActionLoading}
-              >
-                <Icon as={FaHamburger} />
-              </MenuButton>
-            </Tooltip>
-            <MenuList>
-              <MenuItem onClick={logout}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
-        )}
-      </Box>
+        </Box>
+        <Spacer />
+        <Box>
+          <Tooltip
+            label='Toggle light/dark theme'
+            fontSize='xs'
+            placement='left'
+          >
+            <IconButton
+              aria-label='themeIcon'
+              icon={
+                colorMode === ThemeConstants.LIGHT_THEME ? (
+                  <FaSun />
+                ) : (
+                  <FaMoon />
+                )
+              }
+              mt={1}
+              mr={2}
+              size='md'
+              onClick={() => {
+                toggleColorMode();
+              }}
+            />
+          </Tooltip>
+          {!isEmpty(props.rootStore.userStore.email) && (
+            <Menu>
+              <Tooltip label='Actions' fontSize='xs' placement='left'>
+                <MenuButton
+                  as={Button}
+                  aria-label='actions'
+                  size='md'
+                  isLoading={props.rootStore.userStore.isUserActionLoading}
+                >
+                  <Icon as={FaHamburger} />
+                </MenuButton>
+              </Tooltip>
+              <MenuList>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+          )}
+        </Box>
+      </Flex>
     </Box>
   );
 };
