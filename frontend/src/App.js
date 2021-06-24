@@ -16,11 +16,11 @@ import RouteConstants from './constants/RouteConstants';
 
 const NavBarComponent = <Navbar />;
 
-const getExpensePage = (Page) => {
+const expensePageSetup = (Page) => {
   return (
     <Stack direction='row' style={{ marginTop: 0 }} width='full'>
       {NavBarComponent}
-      {Page()}
+      <Page />
     </Stack>
   );
 };
@@ -43,10 +43,10 @@ const App = () => {
           <RedirectScreen />
         </Route>
         <Route exact path={RouteConstants.OVERVIEW}>
-          {getExpensePage(OverviewScreen)}
+          {expensePageSetup(OverviewScreen)}
         </Route>
         <Route exact path={RouteConstants.ANALYTICS}>
-          {getExpensePage(AnalyticsScreen)}
+          {expensePageSetup(AnalyticsScreen)}
         </Route>
         <Route exact path='*'>
           <NotFoundScreen />

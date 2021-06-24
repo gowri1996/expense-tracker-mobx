@@ -1,4 +1,10 @@
-import { action, makeObservable, observable, runInAction } from 'mobx';
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from 'mobx';
 
 import Service from '../../api/Service';
 import { deleteToken } from '../../utils/AuthUtils';
@@ -23,6 +29,7 @@ class UserStore {
 
       isUserActionLoading: observable,
 
+      name: computed,
       setUser: action,
       registerUser: action,
       loginUser: action,
@@ -31,6 +38,10 @@ class UserStore {
       refreshTokens: action,
       logoutUser: action,
     });
+  }
+
+  get name() {
+    return this.firstName + ' ' + this.lastName;
   }
 
   resetUser = () => {
