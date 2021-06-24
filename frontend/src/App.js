@@ -14,10 +14,12 @@ import RedirectScreen from './pages/RedirectScreen';
 import RegisterScreen from './pages/RegisterScreen';
 import RouteConstants from './constants/RouteConstants';
 
+const NavBarComponent = <Navbar />;
+
 const getExpensePage = (Page) => {
   return (
     <Stack direction='row' style={{ marginTop: 0 }} width='full'>
-      <Navbar />
+      {NavBarComponent}
       {Page()}
     </Stack>
   );
