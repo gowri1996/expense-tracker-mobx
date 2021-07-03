@@ -24,6 +24,7 @@ const RegisterScreen = (props) => {
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const handleFormInputChange = (name, value) => {
     const data = { ...formValues, [name]: value };
@@ -35,6 +36,7 @@ const RegisterScreen = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     props.rootStore.userStore
       .registerUser({
         firstName: formValues.firstName,
@@ -58,6 +60,9 @@ const RegisterScreen = (props) => {
             description: error.message,
           })
         );
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -137,11 +142,7 @@ const RegisterScreen = (props) => {
                 </Link>
               </Box>
               <Box mt={7} textAlign='center'>
-                <Button
-                  type='submit'
-                  isDisabled={props.rootStore.userStore.isUserActionLoading}
-                  isLoading={props.rootStore.userStore.isUserActionLoading}
-                >
+                <Button type='submit' isLoading={loading}>
                   Sign Up
                 </Button>
               </Box>

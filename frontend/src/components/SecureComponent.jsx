@@ -14,7 +14,7 @@ export const secureComponent = (Page) => {
     const location = useLocation();
     const isLoggedIn = isAuthenticatedUser();
 
-    if (isEmpty(props.rootStore.userStore.email)) {
+    if (isEmpty(props.rootStore.userStore._id)) {
       let route = RouteConstants.REDIRECT;
       if (location && location.pathname) {
         let searchParams = location.search

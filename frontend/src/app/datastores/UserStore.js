@@ -6,16 +6,17 @@ import {
   runInAction,
 } from 'mobx';
 
+import ExpenseStore from './ExpenseStore';
 import Service from '../../api/Service';
 import { deleteToken } from '../../utils/AuthUtils';
 import isEmpty from 'lodash.isempty';
 
 class UserStore {
+  _id = null;
   firstName = null;
   lastName = null;
   email = null;
-
-  isUserActionLoading = false;
+  expenses = [];
 
   rootStore = null;
 
@@ -23,11 +24,11 @@ class UserStore {
     this.rootStore = rootStore;
 
     makeObservable(this, {
+      _id: observable,
       firstName: observable,
       lastName: observable,
       email: observable,
-
-      isUserActionLoading: observable,
+      expenses: observable,
 
       name: computed,
       setUser: action,
@@ -45,124 +46,128 @@ class UserStore {
   }
 
   resetUser = () => {
+    this._id = null;
     this.firstName = null;
     this.lastName = null;
     this.email = null;
+    this.expenses = [];
   };
 
   setUser = (user) => {
     if (isEmpty(user)) return;
 
+    if (!isEmpty(user._id)) this._id = user._id;
     if (!isEmpty(user.firstName)) this.firstName = user.firstName;
     if (!isEmpty(user.lastName)) this.lastName = user.lastName;
     if (!isEmpty(user.email)) this.email = user.email;
+    if (!isEmpty(user.expenses))
+      this.expenses = this.constructExpenses(user.expenses);
+  };
+
+  constructExpenses = (userExpenses) => {
+    const expenses = [];
+    userExpenses.forEach((expense) => {
+      expenses.push(new ExpenseStore(expense));
+    });
+    return expenses;
   };
 
   registerUser = async (request) => {
-    this.isUserActionLoading = true;
     return Service.registerUserService(request).then(
       (response) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         return Service.constructSuccessResponse(response);
       },
       (error) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         throw Service.constructErrorResponse(error);
       }
     );
   };
 
   loginUser = async (request) => {
-    this.isUserActionLoading = true;
     return Service.loginUserService(request).then(
       (response) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         return Service.constructSuccessResponse(response);
       },
       (error) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         throw Service.constructErrorResponse(error);
       }
     );
   };
 
   resetPasswordUser = async (request) => {
-    this.isUserActionLoading = true;
     return Service.resetPasswordUserService(request).then(
       (response) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         return Service.constructSuccessResponse(response);
       },
       (error) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         throw Service.constructErrorResponse(error);
       }
     );
   };
 
   getFullDetails = async () => {
-    this.isUserActionLoading = true;
     return Service.getUserFullDetails().then(
       (response) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         return Service.constructSuccessResponse(response);
       },
       (error) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         throw Service.constructErrorResponse(error);
       }
     );
   };
 
   refreshTokens = async () => {
-    this.isUserActionLoading = true;
     return Service.refreshTokens().then(
       (response) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         return Service.constructSuccessResponse(response);
       },
       (error) => {
-        runInAction(() => {
-          this.isUserActionLoading = false;
-        });
         throw Service.constructErrorResponse(error);
       }
     );
   };
 
   logoutUser = async () => {
-    this.isUserActionLoading = true;
     return Service.logoutUser().then(
       (response) => {
         runInAction(() => {
-          this.isUserActionLoading = false;
           this.resetUser();
         });
         deleteToken();
         return Service.constructSuccessResponse(response);
       },
       (error) => {
+        throw Service.constructErrorResponse(error);
+      }
+    );
+  };
+
+  createExpense = async (request) => {
+    return Service.createExpense(request).then(
+      (response) => {
         runInAction(() => {
-          this.isUserActionLoading = false;
+          this.expenses.push(new ExpenseStore(response.data));
         });
+        return Service.constructSuccessResponse(response);
+      },
+      (error) => {
+        throw Service.constructErrorResponse(error);
+      }
+    );
+  };
+
+  updateExpense = async (expenseId, request) => {
+    return Service.updateExpense(expenseId, request).then(
+      (response) => {
+        runInAction(() => {
+          const expense = this.expenses.find(
+            (expense) => expense._id === response.data._id
+          );
+          if (expense) expense.updateExpense(response.data);
+        });
+        return Service.constructSuccessResponse(response);
+      },
+      (error) => {
         throw Service.constructErrorResponse(error);
       }
     );

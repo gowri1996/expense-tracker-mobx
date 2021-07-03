@@ -2,7 +2,7 @@ import { getColor, mode } from '@chakra-ui/theme-tools';
 
 import ThemeConstants from '../../../../constants/ThemeConstants';
 
-const input = {
+const textarea = {
   variants: {
     outline: (props) => {
       const color = mode(
@@ -11,21 +11,19 @@ const input = {
       )(props);
       const rawColor = getColor(props.theme, color);
       return {
-        field: {
-          _focus: {
-            zIndex: 1,
-            borderColor: color,
-            boxShadow: `0 0 0 1.5px ${rawColor}`,
-          },
-          _active: {
-            zIndex: 1,
-            borderColor: color,
-            boxShadow: `0 0 0 1.5px ${rawColor}`,
-          },
+        _focus: {
+          zIndex: 1,
+          borderColor: color,
+          boxShadow: `0 0 0 1.5px ${rawColor}`,
+        },
+        _active: {
+          zIndex: 1,
+          borderColor: color,
+          boxShadow: `0 0 0 1.5px ${rawColor}`,
         },
       };
     },
   },
 };
 
-export default input;
+export default textarea;

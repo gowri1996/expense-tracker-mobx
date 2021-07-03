@@ -24,6 +24,7 @@ const LoginScreen = (props) => {
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const toast = useToast();
   const history = useHistory();
@@ -35,6 +36,7 @@ const LoginScreen = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     props.rootStore.userStore
       .loginUser({
         email: formValues.email,
@@ -55,6 +57,9 @@ const LoginScreen = (props) => {
             description: error.message,
           })
         );
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -107,11 +112,7 @@ const LoginScreen = (props) => {
                 </Link>
               </HStack>
               <Box mt={7} textAlign='center'>
-                <Button
-                  type='submit'
-                  isDisabled={props.rootStore.userStore.isUserActionLoading}
-                  isLoading={props.rootStore.userStore.isUserActionLoading}
-                >
+                <Button type='submit' isLoading={loading}>
                   Sign In
                 </Button>
               </Box>

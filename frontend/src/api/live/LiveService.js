@@ -34,6 +34,24 @@ const logoutUser = () => {
   });
 };
 
+const getExpenseCategories = () => {
+  return new Promise((resolve, reject) => {
+    resolve();
+  });
+};
+
+const createExpense = (request) => {
+  return new Promise((resolve, reject) => {
+    resolve(request);
+  });
+};
+
+const updateExpense = (expenseId, request) => {
+  return new Promise((resolve, reject) => {
+    resolve(request);
+  });
+};
+
 const exportData = {
   registerUserService,
   loginUserService,
@@ -41,6 +59,10 @@ const exportData = {
   getUserFullDetails,
   refreshTokens,
   logoutUser,
+
+  getExpenseCategories,
+  createExpense,
+  updateExpense,
 };
 
 export default exportData;

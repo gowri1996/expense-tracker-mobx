@@ -21,6 +21,7 @@ const ForgotPasswordScreen = (props) => {
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const toast = useToast();
   const history = useHistory();
@@ -32,6 +33,7 @@ const ForgotPasswordScreen = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     props.rootStore.userStore
       .resetPasswordUser({
         email: formValues.email,
@@ -53,6 +55,9 @@ const ForgotPasswordScreen = (props) => {
             description: error.message,
           })
         );
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -97,11 +102,7 @@ const ForgotPasswordScreen = (props) => {
                 />
               </FormControl>
               <Box mt={8} textAlign='center'>
-                <Button
-                  type='submit'
-                  isDisabled={props.rootStore.userStore.isUserActionLoading}
-                  isLoading={props.rootStore.userStore.isUserActionLoading}
-                >
+                <Button type='submit' isLoading={loading}>
                   Submit
                 </Button>
               </Box>

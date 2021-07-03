@@ -2,7 +2,7 @@ import { getColor, mode } from '@chakra-ui/theme-tools';
 
 import ThemeConstants from '../../../../constants/ThemeConstants';
 
-const input = {
+const select = {
   variants: {
     outline: (props) => {
       const color = mode(
@@ -22,10 +22,13 @@ const input = {
             borderColor: color,
             boxShadow: `0 0 0 1.5px ${rawColor}`,
           },
+          '> option': {
+            bg: color,
+          },
         },
       };
     },
   },
 };
 
-export default input;
+export default select;

@@ -38,6 +38,33 @@ const button = {
         color,
       };
     },
+    danger: (props) => {
+      const color = mode('#121212', '#F8F8F8')(props);
+      const bg = mode(
+        ThemeConstants.LIGHT_THEME_DANGER_COLOR,
+        ThemeConstants.DARK_THEME_DANGER_COLOR
+      )(props);
+      const hoverBg = mode(
+        ThemeConstants.LIGHT_THEME_DANGER_HOVER_COLOR,
+        ThemeConstants.DARK_THEME_DANGER_HOVER_COLOR
+      )(props);
+      return {
+        bg,
+        _active: {
+          bg,
+          borderColor: color,
+        },
+        _focus: {
+          bg,
+          borderColor: color,
+          boxShadow: `0 0 0 1px ${color}`,
+        },
+        _hover: {
+          bg: hoverBg,
+        },
+        color,
+      };
+    },
   },
 };
 

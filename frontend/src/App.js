@@ -1,29 +1,18 @@
 import './App.css';
 
 import { Route, Switch } from 'react-router-dom';
-import { Stack, VStack } from '@chakra-ui/react';
 
 import AnalyticsScreen from './pages/expense/AnalyticsScreen';
+import ExpensePageSetup from './pages/ExpensePageSetup';
 import ForgotPasswordScreen from './pages/ForgotPasswordScreen';
 import Header from './components/Header';
 import LoginScreen from './pages/LoginScreen';
-import Navbar from './components/Navbar';
 import NotFoundScreen from './pages/NotFoundScreen';
 import OverviewScreen from './pages/expense/OverviewScreen';
 import RedirectScreen from './pages/RedirectScreen';
 import RegisterScreen from './pages/RegisterScreen';
 import RouteConstants from './constants/RouteConstants';
-
-const NavBarComponent = <Navbar />;
-
-const expensePageSetup = (Page) => {
-  return (
-    <Stack direction='row' style={{ marginTop: 0 }} width='full'>
-      {NavBarComponent}
-      <Page />
-    </Stack>
-  );
-};
+import { VStack } from '@chakra-ui/react';
 
 const App = () => {
   return (
@@ -43,10 +32,10 @@ const App = () => {
           <RedirectScreen />
         </Route>
         <Route exact path={RouteConstants.OVERVIEW}>
-          {expensePageSetup(OverviewScreen)}
+          <ExpensePageSetup render={() => <OverviewScreen />} />
         </Route>
         <Route exact path={RouteConstants.ANALYTICS}>
-          {expensePageSetup(AnalyticsScreen)}
+          <ExpensePageSetup render={() => <AnalyticsScreen />} />
         </Route>
         <Route exact path='*'>
           <NotFoundScreen />

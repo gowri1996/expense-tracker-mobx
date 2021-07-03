@@ -12,7 +12,7 @@ const Navbar = (props) => {
   const location = useLocation();
   const { colorMode } = useColorMode();
 
-  if (isEmpty(props.rootStore.userStore.email)) return <></>;
+  if (isEmpty(props.rootStore.userStore._id)) return <></>;
   return (
     <Box
       p={4}
@@ -26,7 +26,7 @@ const Navbar = (props) => {
         md: '100px',
         lg: '100px',
         xl: '100px',
-        xxl: '250px',
+        xxl: '300px',
       }}
       display={{
         xs: 'none',
@@ -53,7 +53,7 @@ const Navbar = (props) => {
             return (
               <Box
                 py={2}
-                pl={2}
+                px={2}
                 width='full'
                 borderRadius={5}
                 key={nav.ROUTE}
@@ -67,7 +67,10 @@ const Navbar = (props) => {
                     : undefined
                 }
               >
-                <Text>{nav.TEXT}</Text>
+                <Text float='left'>{nav.TEXT}</Text>
+                <Text float='right'>
+                  {props.rootStore.userStore.expenses.length}
+                </Text>
               </Box>
             );
           })}

@@ -36,6 +36,18 @@ const logoutUser = () => {
   return service.logoutUser();
 };
 
+const getExpenseCategories = () => {
+  return service.getExpenseCategories();
+};
+
+const createExpense = (request) => {
+  return service.createExpense(request);
+};
+
+const updateExpense = (expenseId, request) => {
+  return service.updateExpense(expenseId, request);
+};
+
 const exportData = {
   constructErrorResponse,
   constructSuccessResponse,
@@ -45,6 +57,10 @@ const exportData = {
   getUserFullDetails,
   refreshTokens,
   logoutUser,
+
+  getExpenseCategories,
+  createExpense,
+  updateExpense,
 };
 
 export default exportData;

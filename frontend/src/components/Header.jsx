@@ -14,21 +14,23 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { FaHamburger, FaInfo, FaMoon, FaSun } from 'react-icons/fa';
+import React, { useState } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 
 import AppUtils from '../utils/AppUtils';
-import React from 'react';
 import RouteConstants from '../constants/RouteConstants';
 import ThemeConstants from '../constants/ThemeConstants';
 import isEmpty from 'lodash.isempty';
 import { withContext } from '../app/datastores/RootStoreContext';
 
 const Header = (props) => {
+  const [loading, setLoading] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const toast = useToast();
   const history = useHistory();
 
   const logout = () => {
+    setLoading(true);
     props.rootStore.userStore
       .logoutUser()
       .then(() => {
@@ -41,6 +43,9 @@ const Header = (props) => {
             description: error.message,
           })
         );
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -97,14 +102,14 @@ const Header = (props) => {
               }}
             />
           </Tooltip>
-          {!isEmpty(props.rootStore.userStore.email) && (
+          {!isEmpty(props.rootStore.userStore._id) && (
             <Menu>
               <Tooltip label='Actions' fontSize='xs' placement='left'>
                 <MenuButton
                   as={Button}
                   aria-label='actions'
                   size='md'
-                  isLoading={props.rootStore.userStore.isUserActionLoading}
+                  isLoading={loading}
                 >
                   <Icon as={FaHamburger} />
                 </MenuButton>

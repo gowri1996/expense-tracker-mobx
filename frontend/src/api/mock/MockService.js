@@ -8,6 +8,7 @@ import bcrypt from 'bcryptjs';
 import cookies from 'react-cookies';
 import isEmpty from 'lodash.isempty';
 import jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
 
 const generateHashPassword = (passwordPlainText) => {
   const hash = bcrypt.hashSync(passwordPlainText, 10);
@@ -33,7 +34,13 @@ const registerUserService = (request) => {
           return;
         }
 
-        const user = { ...request, token: null, refreshToken: null };
+        const user = {
+          ...request,
+          _id: uuidv4(),
+          expenses: [],
+          token: null,
+          refreshToken: null,
+        };
         user.password = generateHashPassword(request.password);
 
         localUsers.push(user);
@@ -153,9 +160,11 @@ const getUserFullDetails = () => {
         }
 
         const data = {
+          _id: user._id,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
+          expenses: user.expenses,
         };
 
         resolve({
@@ -243,6 +252,105 @@ const logoutUser = () => {
   });
 };
 
+const getExpenseCategories = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve([
+        { _id: 'food', name: 'Food' },
+        { _id: 'party', name: 'Party' },
+        { _id: 'college', name: 'College' },
+      ]);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+const createExpense = (request) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        let localUsers = JSON.parse(localStorage.getItem('users'));
+        if (!Array.isArray(localUsers)) {
+          reject({ message: 'Invalid Email / Password', status: 400 });
+          return;
+        }
+
+        const token = cookies.load(StringConstants.COOKIE_TOKEN);
+        const user = localUsers.find((localUser) => localUser.token === token);
+        if (isEmpty(user)) {
+          reject({ message: 'Invalid credentials', status: 400 });
+          return;
+        }
+
+        if (!isAuthenticatedUser()) {
+          reject({ message: 'Token Expired', status: 401 });
+          return;
+        }
+
+        const currentTime = new Date();
+        const expense = {
+          ...request,
+          _id: uuidv4(),
+          createdAt: currentTime,
+          updatedAt: currentTime,
+        };
+        user.expenses = [...user.expenses, expense];
+        localStorage.setItem('users', JSON.stringify(localUsers));
+
+        resolve({
+          status: 200,
+          message: 'Expense created successfully',
+          data: expense,
+        });
+      } catch (err) {
+        reject(err);
+      }
+    }, 1000);
+  });
+};
+
+const updateExpense = (expenseId, request) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        let localUsers = JSON.parse(localStorage.getItem('users'));
+        if (!Array.isArray(localUsers)) {
+          reject({ message: 'Invalid Email / Password', status: 400 });
+          return;
+        }
+
+        const token = cookies.load(StringConstants.COOKIE_TOKEN);
+        const user = localUsers.find((localUser) => localUser.token === token);
+        if (isEmpty(user)) {
+          reject({ message: 'Invalid credentials', status: 400 });
+          return;
+        }
+
+        if (!isAuthenticatedUser()) {
+          reject({ message: 'Token Expired', status: 401 });
+          return;
+        }
+
+        const expense = user.expenses.find(
+          (expense) => expense._id === expenseId
+        );
+        if (expense)
+          Object.assign(expense, expense, request, { updatedAt: new Date() });
+        localStorage.setItem('users', JSON.stringify(localUsers));
+
+        resolve({
+          status: 200,
+          message: 'Expense updated successfully',
+          data: expense,
+        });
+      } catch (err) {
+        reject(err);
+      }
+    }, 1000);
+  });
+};
+
 const exportData = {
   registerUserService,
   loginUserService,
@@ -250,6 +358,10 @@ const exportData = {
   getUserFullDetails,
   refreshTokens,
   logoutUser,
+
+  getExpenseCategories,
+  createExpense,
+  updateExpense,
 };
 
 export default exportData;

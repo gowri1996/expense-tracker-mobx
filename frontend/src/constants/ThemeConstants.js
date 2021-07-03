@@ -16,6 +16,11 @@ const constants = {
   DARK_THEME_PRIMARY_COLOR: 'green.' + darkPrimaryColorWeight,
   LIGHT_THEME_PRIMARY_HOVER_COLOR: 'green.' + lightPrimaryHoverColorWeight,
   DARK_THEME_PRIMARY_HOVER_COLOR: 'green.' + darkPrimaryHoverColorWeight,
+
+  LIGHT_THEME_DANGER_COLOR: 'red.300',
+  DARK_THEME_DANGER_COLOR: 'red.500',
+  LIGHT_THEME_DANGER_HOVER_COLOR: 'red.500',
+  DARK_THEME_DANGER_HOVER_COLOR: 'red.300',
 };
 
 export default constants;

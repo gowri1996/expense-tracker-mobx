@@ -2,14 +2,14 @@ import { Box, Heading, Text } from '@chakra-ui/react';
 
 import React from 'react';
 import { secureComponent } from '../../components/SecureComponent';
-import { withContext } from '../../app/datastores/RootStoreContext';
 
 const AnalyticsScreen = (props) => {
   return (
-    <Box p={4}>
+    <Box p={4} width='full'>
       <Box>
         <Heading fontWeight={300} letterSpacing={0.5}>
-          Hey {props.rootStore.userStore.name}
+          Hey {props.rootStore.userStore.name} -{' '}
+          {props.rootStore.userStore.expenses.length}
         </Heading>
         <Text>This is your Analytics page</Text>
       </Box>
@@ -17,4 +17,4 @@ const AnalyticsScreen = (props) => {
   );
 };
 
-export default secureComponent(withContext(AnalyticsScreen));
+export default secureComponent(AnalyticsScreen);
