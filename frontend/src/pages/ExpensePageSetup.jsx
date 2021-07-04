@@ -17,6 +17,8 @@ const ExpensePageSetup = (props) => {
       <Box
         style={{ margin: '0px' }}
         width={{
+          xs: 'calc(100%)',
+          sm: 'calc(100%)',
           md: 'calc(100% - 100px)',
           lg: 'calc(100% - 100px)',
           xl: 'calc(100% - 100px)',
