@@ -11,6 +11,7 @@ import {
   Spacer,
   Tooltip,
   useColorMode,
+  useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
 import { FaHamburger, FaInfo, FaMoon, FaSun } from 'react-icons/fa';
@@ -25,7 +26,7 @@ import { withContext } from '../app/datastores/RootStoreContext';
 
 const Header = (props) => {
   const [loading, setLoading] = useState(false);
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { toggleColorMode } = useColorMode();
   const toast = useToast();
   const history = useHistory();
 
@@ -56,17 +57,14 @@ const Header = (props) => {
       width='full'
       position='sticky'
       boxShadow='sm'
-      backgroundColor={
-        colorMode === ThemeConstants.LIGHT_THEME
-          ? ThemeConstants.LIGHT_THEME_PRIMARY_COLOR
-          : ThemeConstants.DARK_THEME_PRIMARY_COLOR
-      }
+      backgroundColor={useColorModeValue(
+        ThemeConstants.LIGHT_THEME_PRIMARY_COLOR,
+        ThemeConstants.DARK_THEME_PRIMARY_COLOR
+      )}
       top={0}
       zIndex={1}
     >
-      <Flex
-        color={colorMode === ThemeConstants.LIGHT_THEME ? '#121212' : '#D3D3D3'}
-      >
+      <Flex>
         <Box>
           <IconButton
             aria-label='themeIcon'
@@ -87,13 +85,7 @@ const Header = (props) => {
           >
             <IconButton
               aria-label='themeIcon'
-              icon={
-                colorMode === ThemeConstants.LIGHT_THEME ? (
-                  <FaSun />
-                ) : (
-                  <FaMoon />
-                )
-              }
+              icon={useColorModeValue(<FaSun />, <FaMoon />)}
               mt={1}
               mr={2}
               size='md'

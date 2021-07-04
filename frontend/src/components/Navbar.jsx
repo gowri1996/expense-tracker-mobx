@@ -1,16 +1,16 @@
-import { Box, Text, VStack, useColorMode } from '@chakra-ui/react';
+import { Box, Text, VStack, useColorModeValue } from '@chakra-ui/react';
 
 import AppUtils from '../utils/AppUtils';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import ThemeConstants from '../constants/ThemeConstants';
 import isEmpty from 'lodash.isempty';
 import { useLocation } from 'react-router-dom';
 import { withContext } from '../app/datastores/RootStoreContext';
 
 const Navbar = (props) => {
   const location = useLocation();
-  const { colorMode } = useColorMode();
+  const bgColor = useColorModeValue('#FCFCFC', '#181818');
+  const selectedPathBgColor = useColorModeValue('#EDEEEF', '#080808');
 
   if (isEmpty(props.rootStore.userStore._id)) return <></>;
   return (
@@ -36,7 +36,7 @@ const Navbar = (props) => {
         xl: 'block',
         xxl: 'block',
       }}
-      bg={colorMode === ThemeConstants.LIGHT_THEME ? '#FCFCFC' : '#181818'}
+      bg={bgColor}
     >
       <Box
         display={{
@@ -61,9 +61,7 @@ const Navbar = (props) => {
                 to={nav.ROUTE}
                 bg={
                   nav.ROUTE === location.pathname
-                    ? colorMode === ThemeConstants.LIGHT_THEME
-                      ? '#EDEEEF'
-                      : '#080808'
+                    ? selectedPathBgColor
                     : undefined
                 }
               >
