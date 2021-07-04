@@ -292,8 +292,8 @@ const createExpense = (request) => {
         const expense = {
           ...request,
           _id: uuidv4(),
-          createdAt: currentTime,
-          updatedAt: currentTime,
+          createdAt: currentTime.toString(),
+          updatedAt: currentTime.toString(),
         };
         user.expenses = [...user.expenses, expense];
         localStorage.setItem('users', JSON.stringify(localUsers));
@@ -336,7 +336,9 @@ const updateExpense = (expenseId, request) => {
           (expense) => expense._id === expenseId
         );
         if (expense)
-          Object.assign(expense, expense, request, { updatedAt: new Date() });
+          Object.assign(expense, expense, request, {
+            updatedAt: new Date().toString(),
+          });
         localStorage.setItem('users', JSON.stringify(localUsers));
 
         resolve({

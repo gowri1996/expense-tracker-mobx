@@ -3,13 +3,14 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   useToast,
 } from '@chakra-ui/react';
 
 import AppUtils from '../utils/AppUtils';
-import Card from '../components/Card';
+import Card from '../components/card/Card';
+import CardContent from '../components/card/CardContent';
+import CardHeader from '../components/card/CardHeader';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
 import { unsecureComponent } from '../components/UnsecureComponent';
@@ -68,10 +69,8 @@ const ForgotPasswordScreen = (props) => {
       </Helmet>
       <Box style={{ marginTop: '15vh' }} width={500} maxWidth={500}>
         <Card p={4}>
-          <Box p={4} textAlign='center'>
-            <Heading size='lg'>Forgot Password</Heading>
-          </Box>
-          <Box p={4} textAlign='left'>
+          <CardHeader title='Forgot Password' />
+          <CardContent p={4} textAlign='left'>
             <form onSubmit={onSubmit}>
               <FormControl isRequired>
                 <FormLabel>Email</FormLabel>
@@ -107,7 +106,7 @@ const ForgotPasswordScreen = (props) => {
                 </Button>
               </Box>
             </form>
-          </Box>
+          </CardContent>
         </Card>
       </Box>
     </>

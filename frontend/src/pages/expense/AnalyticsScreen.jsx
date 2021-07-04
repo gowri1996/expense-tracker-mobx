@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 
 import React from 'react';
 import { secureComponent } from '../../components/SecureComponent';
@@ -8,10 +8,8 @@ const AnalyticsScreen = (props) => {
     <Box p={4} width='full'>
       <Box>
         <Heading fontWeight={300} letterSpacing={0.5}>
-          Hey {props.rootStore.userStore.name} -{' '}
-          {props.rootStore.userStore.expenses.length}
+          Analytics
         </Heading>
-        <Text>This is your Analytics page</Text>
       </Box>
     </Box>
   );

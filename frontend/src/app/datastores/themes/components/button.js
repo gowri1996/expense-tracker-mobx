@@ -61,6 +61,14 @@ const button = {
         },
         _hover: {
           bg: hoverBg,
+          _disabled: {
+            bg,
+            opacity: 0.5,
+          },
+        },
+        _disabled: {
+          bg,
+          opacity: 0.5,
         },
         color,
       };

@@ -22,12 +22,7 @@ const Navbar = (props) => {
       h='calc(100vh - 50px)'
       boxShadow='sm'
       overflowY='auto'
-      width={{
-        md: '100px',
-        lg: '100px',
-        xl: '100px',
-        xxl: '300px',
-      }}
+      width={props.width}
       display={{
         xs: 'none',
         sm: 'none',

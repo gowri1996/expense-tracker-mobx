@@ -14,48 +14,20 @@ import {
   NumberInputField,
   Select,
   Textarea,
-  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
-import AppUtils from '../../../utils/AppUtils';
-import Service from '../../../api/Service';
-import { withContext } from '../../../app/datastores/RootStoreContext';
-
 const CreateExpenseModal = (props) => {
-  const toast = useToast();
-
   const [expenseValues, setExpenseValues] = useState({
     name: '',
     expense: 0,
     category: '',
     description: '',
   });
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    Service.getExpenseCategories()
-      .then((categories) => {
-        setCategories(categories);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        toast(
-          AppUtils.errorToastMessage({
-            title: 'Could not load categories',
-            description: error.message,
-          })
-        );
-      });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
     if (props.visible) {
-      categories.length > 0 &&
-        handleFormInputChange('category', categories[0]._id);
+      props.categories.length > 0 &&
+        handleFormInputChange('category', props.categories[0]._id);
     } else {
       setExpenseValues({
         name: '',
@@ -73,32 +45,7 @@ const CreateExpenseModal = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    props.rootStore.userStore
-      .createExpense({
-        name: expenseValues.name,
-        expense: expenseValues.expense,
-        category: expenseValues.category,
-        description: expenseValues.description,
-      })
-      .then(() => {
-        toast(
-          AppUtils.successToastMessage({
-            title: 'Expense created',
-          })
-        );
-      })
-      .catch((error) => {
-        toast(
-          AppUtils.errorToastMessage({
-            title: 'Expense cannot be added',
-            description: error.message,
-          })
-        );
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    props.createExpense(expenseValues);
   };
 
   return (
@@ -107,12 +54,11 @@ const CreateExpenseModal = (props) => {
       blockScrollOnMount={false}
       isOpen={props.visible}
       onClose={props.onClose}
-      size='lg'
     >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Create Expense</ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton isDisabled={props.loading} />
         <ModalBody>
           <Box p={4} textAlign='left'>
             <form onSubmit={onSubmit}>
@@ -155,14 +101,14 @@ const CreateExpenseModal = (props) => {
                     );
                   }}
                 >
-                  {categories.map((category) => (
+                  {props.categories.map((category) => (
                     <option key={category._id} value={category._id}>
                       {category.name}
                     </option>
                   ))}
                 </Select>
               </FormControl>
-              <FormControl mt={2} isRequired>
+              <FormControl mt={2}>
                 <FormLabel>Description</FormLabel>
                 <Textarea
                   name='description'
@@ -177,10 +123,15 @@ const CreateExpenseModal = (props) => {
                 />
               </FormControl>
               <Box mt={7} textAlign='center'>
-                <Button variant='danger' mr={5} onClick={props.onClose}>
+                <Button
+                  variant='danger'
+                  mr={5}
+                  onClick={props.onClose}
+                  isDisabled={props.loading}
+                >
                   Close
                 </Button>
-                <Button type='submit' isLoading={loading}>
+                <Button type='submit' isLoading={props.loading}>
                   Create
                 </Button>
               </Box>
@@ -192,4 +143,4 @@ const CreateExpenseModal = (props) => {
   );
 };
 
-export default withContext(CreateExpenseModal);
+export default CreateExpenseModal;
