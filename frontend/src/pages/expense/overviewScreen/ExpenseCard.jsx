@@ -1,4 +1,5 @@
 import { FaEdit, FaRegWindowClose } from 'react-icons/fa';
+import { IconButton, Tooltip } from '@chakra-ui/react';
 
 import Card from '../../../components/card/Card';
 import CardContent from '../../../components/card/CardContent';
@@ -17,8 +18,9 @@ const ExpenseCard = (props) => {
     new Date(props.data.updatedAt).toLocaleDateString() +
     ' ' +
     new Date(props.data.updatedAt).toLocaleTimeString();
+
   return (
-    <Card p={4} borderRadius={10} width={props.width}>
+    <Card py={1.5} px={4} borderRadius={10} width={props.width}>
       <CardContent mt={1}>
         <CardProperty label='Name' value={props.data.name} useTooltip={true} />
         <CardProperty label='Category' value={props.data.category} />
@@ -29,13 +31,29 @@ const ExpenseCard = (props) => {
           useTooltip={true}
         />
         <CardProperty label='Created At' value={createdAt} />
-        <CardProperty
-          label='Updated At'
-          value={updatedAt}
-          showHorizontalDivider={false}
-        />
+        <CardProperty label='Updated At' value={updatedAt} />
       </CardContent>
-      <CardFooter actions={[<FaEdit />, <FaRegWindowClose />]} />
+      <CardFooter
+        actions={[
+          <Tooltip label='Update Expense' fontSize='xs' placement='top'>
+            <IconButton
+              aria-label='updateIcon'
+              icon={<FaEdit />}
+              size='md'
+              onClick={props.onUpdateExpenseClick}
+            />
+          </Tooltip>,
+          <Tooltip label='Delete Expense' fontSize='xs' placement='top'>
+            <IconButton
+              variant='danger'
+              aria-label='deleteIcon'
+              icon={<FaRegWindowClose />}
+              size='md'
+              onClick={props.onDeleteExpenseClick}
+            />
+          </Tooltip>,
+        ]}
+      />
     </Card>
   );
 };

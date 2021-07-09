@@ -156,6 +156,24 @@ class UserStore {
     );
   };
 
+  deleteExpense = async (request) => {
+    return Service.deleteExpense(request).then(
+      (response) => {
+        runInAction(() => {
+          const expenseId = request;
+          this.expenses.splice(
+            this.expenses.findIndex((expense) => expense._id === expenseId),
+            1
+          );
+        });
+        return Service.constructSuccessResponse(response);
+      },
+      (error) => {
+        throw Service.constructErrorResponse(error);
+      }
+    );
+  };
+
   updateExpense = async (expenseId, request) => {
     return Service.updateExpense(expenseId, request).then(
       (response) => {

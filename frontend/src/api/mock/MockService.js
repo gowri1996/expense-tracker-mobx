@@ -310,6 +310,50 @@ const createExpense = (request) => {
   });
 };
 
+const deleteExpense = (expenseId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        let localUsers = JSON.parse(localStorage.getItem('users'));
+        if (!Array.isArray(localUsers)) {
+          reject({ message: 'Invalid Email / Password', status: 400 });
+          return;
+        }
+
+        const token = cookies.load(StringConstants.COOKIE_TOKEN);
+        const user = localUsers.find((localUser) => localUser.token === token);
+        if (isEmpty(user)) {
+          reject({ message: 'Invalid credentials', status: 400 });
+          return;
+        }
+
+        if (!isAuthenticatedUser()) {
+          reject({ message: 'Token Expired', status: 401 });
+          return;
+        }
+
+        const expense = user.expenses.find(
+          (expense) => expense._id === expenseId
+        );
+        if (expense)
+          user.expenses.splice(
+            user.expenses.findIndex((expense) => expense._id === expenseId),
+            1
+          );
+        localStorage.setItem('users', JSON.stringify(localUsers));
+
+        resolve({
+          status: 200,
+          message: 'Expense deleted successfully',
+          data: expense,
+        });
+      } catch (err) {
+        reject(err);
+      }
+    }, 1000);
+  });
+};
+
 const updateExpense = (expenseId, request) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -363,6 +407,7 @@ const exportData = {
 
   getExpenseCategories,
   createExpense,
+  deleteExpense,
   updateExpense,
 };
 

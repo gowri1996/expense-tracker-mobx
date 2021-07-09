@@ -44,6 +44,10 @@ const createExpense = (request) => {
   return service.createExpense(request);
 };
 
+const deleteExpense = (request) => {
+  return service.deleteExpense(request);
+};
+
 const updateExpense = (expenseId, request) => {
   return service.updateExpense(expenseId, request);
 };
@@ -60,6 +64,7 @@ const exportData = {
 
   getExpenseCategories,
   createExpense,
+  deleteExpense,
   updateExpense,
 };
 

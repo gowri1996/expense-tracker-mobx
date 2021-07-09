@@ -7,6 +7,8 @@ const modal = {
       dialog: {
         borderRadius: 'lg',
         bg: bg,
+        mt: 'auto',
+        mb: 'auto',
         zIndex: 'modal',
       },
       closeButton: {

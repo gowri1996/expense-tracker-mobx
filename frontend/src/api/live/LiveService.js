@@ -46,6 +46,12 @@ const createExpense = (request) => {
   });
 };
 
+const deleteExpense = (request) => {
+  return new Promise((resolve, reject) => {
+    resolve(request);
+  });
+};
+
 const updateExpense = (expenseId, request) => {
   return new Promise((resolve, reject) => {
     resolve(request);
@@ -62,6 +68,7 @@ const exportData = {
 
   getExpenseCategories,
   createExpense,
+  deleteExpense,
   updateExpense,
 };
 

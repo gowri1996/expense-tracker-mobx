@@ -36,7 +36,7 @@ class ExpenseStore {
   updateExpense = (data) => {
     if (!isEmpty(data._id)) this._id = data._id;
     if (!isEmpty(data.name)) this.name = data.name;
-    if (!isEmpty(data.expense)) this.expense = data.expense;
+    if (data.expense !== undefined) this.expense = data.expense;
     if (!isEmpty(data.category)) this.category = data.category;
     if (!isEmpty(data.description)) this.description = data.description;
     if (!isEmpty(data.createdAt)) this.createdAt = data.createdAt;

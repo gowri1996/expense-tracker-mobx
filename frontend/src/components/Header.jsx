@@ -67,7 +67,7 @@ const Header = (props) => {
       <Flex>
         <Box>
           <IconButton
-            aria-label='themeIcon'
+            aria-label='homeIcon'
             as={RouterLink}
             to={RouteConstants.LOGIN}
             icon={<FaInfo />}

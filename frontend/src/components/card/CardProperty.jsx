@@ -2,13 +2,7 @@ import { Box, Divider, Flex, Text, Tooltip } from '@chakra-ui/react';
 
 import React from 'react';
 
-const CardProperty = ({
-  label,
-  value,
-  useTooltip,
-  showHorizontalDivider,
-  ...flexProps
-}) => {
+const CardProperty = ({ label, value, useTooltip, ...flexProps }) => {
   return (
     <Box>
       <Flex direction={{ base: 'row' }} px='1' py='2' {...flexProps}>
@@ -30,7 +24,7 @@ const CardProperty = ({
           )}
         </Box>
       </Flex>
-      {showHorizontalDivider !== false && <Divider />}
+      <Divider />
     </Box>
   );
 };

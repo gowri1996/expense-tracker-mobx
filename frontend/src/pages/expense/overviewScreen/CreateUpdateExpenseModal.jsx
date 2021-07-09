@@ -17,17 +17,27 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
-const CreateExpenseModal = (props) => {
+const CreateUpdateExpenseModal = (props) => {
   const [expenseValues, setExpenseValues] = useState({
     name: '',
     expense: 0,
     category: '',
     description: '',
   });
+
   useEffect(() => {
     if (props.visible) {
-      props.categories.length > 0 &&
-        handleFormInputChange('category', props.categories[0]._id);
+      if (props.expense) {
+        setExpenseValues({
+          name: props.expense.name,
+          expense: props.expense.expense,
+          category: props.expense.category,
+          description: props.expense.description,
+        });
+      } else {
+        props.categories.length > 0 &&
+          handleFormInputChange('category', props.categories[0]._id);
+      }
     } else {
       setExpenseValues({
         name: '',
@@ -45,7 +55,7 @@ const CreateExpenseModal = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.createExpense(expenseValues);
+    props.onSubmit(expenseValues);
   };
 
   return (
@@ -57,7 +67,9 @@ const CreateExpenseModal = (props) => {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create Expense</ModalHeader>
+        <ModalHeader>
+          {props.expense ? 'Update Expense' : 'Create Expense'}
+        </ModalHeader>
         <ModalCloseButton isDisabled={props.loading} />
         <ModalBody>
           <Box p={4} textAlign='left'>
@@ -132,7 +144,7 @@ const CreateExpenseModal = (props) => {
                   Close
                 </Button>
                 <Button type='submit' isLoading={props.loading}>
-                  Create
+                  {props.expense ? 'Update' : 'Create'}
                 </Button>
               </Box>
             </form>
@@ -143,4 +155,4 @@ const CreateExpenseModal = (props) => {
   );
 };
 
-export default CreateExpenseModal;
+export default CreateUpdateExpenseModal;
