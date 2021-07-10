@@ -4,7 +4,8 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd frontend && yarn install && yarn run build"
   },
   "dependencies": {
     "express": "^4.17.1",

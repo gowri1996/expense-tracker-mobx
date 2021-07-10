@@ -10,14 +10,14 @@ app.use('/api', (req, res) => {
 
 app.use(
   '/',
-  expressStaticGzip(path.join(__dirname, '..', 'frontend', 'build'), {
+  expressStaticGzip(path.join(__dirname, 'frontend', 'build'), {
     enableBrotli: true,
     orderPreference: ['br', 'gz'],
   })
 );
 
 app.get('/*', function (req, res) {
-  let file = path.join(__dirname, '..', 'frontend', 'build');
+  let file = path.join(__dirname, 'frontend', 'build');
 
   if (req.acceptsEncodings('br')) {
     res.set('Content-Encoding', 'br');
