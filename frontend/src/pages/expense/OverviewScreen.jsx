@@ -20,6 +20,7 @@ import CreateUpdateExpenseModal from './overviewScreen/CreateUpdateExpenseModal'
 import DeleteExpenseModal from './overviewScreen/DeleteExpenseModal';
 import ExpenseCard from './overviewScreen/ExpenseCard';
 import { FaPlus } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
 import Service from '../../api/Service';
 import { secureComponent } from '../../components/SecureComponent';
 
@@ -149,89 +150,94 @@ const OverviewScreen = (props) => {
   };
 
   return (
-    <Box p={4} height='full'>
-      <Flex>
-        <Box>
-          <Heading fontWeight={300} letterSpacing={0.5}>
-            Overview
-          </Heading>
-        </Box>
-        <Spacer />
-        <Box>
-          <Tooltip label='Create Expense' placement='left' fontSize='sm'>
-            <IconButton
-              aria-label='createExpenseIcon'
-              icon={<FaPlus />}
-              size='md'
-              onClick={() => {
-                setCreateUpdateExpenseModalVisible(true);
-              }}
-            />
-          </Tooltip>
-        </Box>
-      </Flex>
-      {props.rootStore.userStore.expenses.length > 0 ? (
-        <Wrap mt={5} mb={2} spacing='4'>
-          {props.rootStore.userStore.expenses.map((expense) => (
-            <WrapItem
-              key={expense._id}
-              width={{
-                xs: 'full',
-                sm: 'calc(calc((100% / 2)) - 20px)',
-                xl: 'calc(calc((100% / 3)) - 20px)',
-                xxl: 'calc(calc((100% / 3)) - 20px)',
-              }}
-            >
-              <ExpenseCard
-                data={expense}
-                width='full'
-                onUpdateExpenseClick={() => {
-                  setSelectedExpense(expense);
+    <>
+      <Helmet>
+        <title>Overview</title>
+      </Helmet>
+      <Box p={4} height='full'>
+        <Flex>
+          <Box>
+            <Heading fontWeight={300} letterSpacing={0.5}>
+              Overview
+            </Heading>
+          </Box>
+          <Spacer />
+          <Box>
+            <Tooltip label='Create Expense' placement='left' fontSize='sm'>
+              <IconButton
+                aria-label='createExpenseIcon'
+                icon={<FaPlus />}
+                size='md'
+                onClick={() => {
                   setCreateUpdateExpenseModalVisible(true);
                 }}
-                onDeleteExpenseClick={() => {
-                  setSelectedExpense(expense);
-                  setDeleteExpenseModalVisible(true);
-                }}
               />
-            </WrapItem>
-          ))}
-        </Wrap>
-      ) : (
-        <Box my='15%' mx='auto' width='md'>
-          <Card p={7}>
-            <CardContent>
-              <Center>
-                <Text>
-                  {`Hey ${props.rootStore.userStore.firstName}, add some expenses `}
-                  &#128512;
-                </Text>
-              </Center>
-            </CardContent>
-          </Card>
-        </Box>
-      )}
-      <CreateUpdateExpenseModal
-        visible={isCreateUpdateExpenseModalVisible}
-        expense={selectedExpense}
-        loading={loading}
-        categories={categories}
-        onSubmit={onSubmit}
-        onClose={() => {
-          setSelectedExpense(null);
-          setCreateUpdateExpenseModalVisible(false);
-        }}
-      />
-      <DeleteExpenseModal
-        visible={isDeleteExpenseModalVisible}
-        loading={loading}
-        deleteExpense={deleteExpense}
-        onClose={() => {
-          setSelectedExpense(null);
-          setDeleteExpenseModalVisible(false);
-        }}
-      />
-    </Box>
+            </Tooltip>
+          </Box>
+        </Flex>
+        {props.rootStore.userStore.expenses.length > 0 ? (
+          <Wrap mt={5} mb={2} spacing='4'>
+            {props.rootStore.userStore.expenses.map((expense) => (
+              <WrapItem
+                key={expense._id}
+                width={{
+                  xs: 'full',
+                  sm: 'calc(calc((100% / 2)) - 20px)',
+                  xl: 'calc(calc((100% / 3)) - 20px)',
+                  xxl: 'calc(calc((100% / 3)) - 20px)',
+                }}
+              >
+                <ExpenseCard
+                  data={expense}
+                  width='full'
+                  onUpdateExpenseClick={() => {
+                    setSelectedExpense(expense);
+                    setCreateUpdateExpenseModalVisible(true);
+                  }}
+                  onDeleteExpenseClick={() => {
+                    setSelectedExpense(expense);
+                    setDeleteExpenseModalVisible(true);
+                  }}
+                />
+              </WrapItem>
+            ))}
+          </Wrap>
+        ) : (
+          <Box my='15%' mx='auto' width='md'>
+            <Card p={7}>
+              <CardContent>
+                <Center>
+                  <Text>
+                    {`Hey ${props.rootStore.userStore.firstName}, add some expenses `}
+                    &#128512;
+                  </Text>
+                </Center>
+              </CardContent>
+            </Card>
+          </Box>
+        )}
+        <CreateUpdateExpenseModal
+          visible={isCreateUpdateExpenseModalVisible}
+          expense={selectedExpense}
+          loading={loading}
+          categories={categories}
+          onSubmit={onSubmit}
+          onClose={() => {
+            setSelectedExpense(null);
+            setCreateUpdateExpenseModalVisible(false);
+          }}
+        />
+        <DeleteExpenseModal
+          visible={isDeleteExpenseModalVisible}
+          loading={loading}
+          deleteExpense={deleteExpense}
+          onClose={() => {
+            setSelectedExpense(null);
+            setDeleteExpenseModalVisible(false);
+          }}
+        />
+      </Box>
+    </>
   );
 };
 
