@@ -33,6 +33,8 @@ app.get('/*', function (req, res) {
   res.sendFile(file);
 });
 
-app.listen(5000, () => {
-  console.log('Expense tracker server started');
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`Expense tracker server started at ${port}`);
 });
