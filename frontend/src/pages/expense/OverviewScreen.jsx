@@ -203,7 +203,15 @@ const OverviewScreen = (props) => {
             ))}
           </Wrap>
         ) : (
-          <Box my='15%' mx='auto' width='md'>
+          <Box
+            mt='15vh'
+            mx='auto'
+            width={{
+              xs: '70%',
+              sm: '70%',
+              md: '50%',
+            }}
+          >
             <Card p={7}>
               <CardContent>
                 <Center>
