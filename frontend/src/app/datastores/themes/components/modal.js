@@ -9,8 +9,8 @@ const modal = {
         bg: bg,
         zIndex: 'modal',
         width: {
-          xs: '40vh',
-          sm: '100vh',
+          xs: '85%',
+          sm: '100%',
         },
       },
       closeButton: {
