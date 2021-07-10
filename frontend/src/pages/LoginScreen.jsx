@@ -69,7 +69,17 @@ const LoginScreen = (props) => {
       <Helmet>
         <title>Login</title>
       </Helmet>
-      <Box style={{ marginTop: '15vh' }} width={500} maxWidth={500}>
+      <Box
+        style={{ margin: 'auto' }}
+        width={{
+          xs: '95%',
+          sm: '70%',
+          md: '50%',
+          lg: '40%',
+          xl: '40%',
+          xxl: '35%',
+        }}
+      >
         <Card p={4}>
           <CardHeader title='Login' />
           <CardContent p={4} textAlign='left'>

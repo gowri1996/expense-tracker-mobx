@@ -5,7 +5,7 @@ import React from 'react';
 
 const ExpensePageSetup = (props) => {
   return (
-    <Stack direction='row' style={{ marginTop: 0 }} width='full'>
+    <Stack direction='row' style={{ marginTop: 0 }} width='full' height='full'>
       <Navbar
         width={{
           md: '100px',
@@ -17,8 +17,8 @@ const ExpensePageSetup = (props) => {
       <Box
         style={{ margin: '0px' }}
         width={{
-          xs: 'calc(100%)',
-          sm: 'calc(100%)',
+          xs: 'full',
+          sm: 'full',
           md: 'calc(100% - 100px)',
           lg: 'calc(100% - 100px)',
           xl: 'calc(100% - 100px)',

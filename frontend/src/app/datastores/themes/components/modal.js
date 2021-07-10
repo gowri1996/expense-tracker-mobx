@@ -7,9 +7,11 @@ const modal = {
       dialog: {
         borderRadius: 'lg',
         bg: bg,
-        mt: 'auto',
-        mb: 'auto',
         zIndex: 'modal',
+        width: {
+          xs: '40vh',
+          sm: '100vh',
+        },
       },
       closeButton: {
         _active: {

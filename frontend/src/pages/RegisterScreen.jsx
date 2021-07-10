@@ -72,7 +72,17 @@ const RegisterScreen = (props) => {
       <Helmet>
         <title>Register</title>
       </Helmet>
-      <Box style={{ marginTop: '5vh' }} width={500} maxWidth={500}>
+      <Box
+        style={{ margin: 'auto' }}
+        width={{
+          xs: '95%',
+          sm: '70%',
+          md: '50%',
+          lg: '40%',
+          xl: '40%',
+          xxl: '35%',
+        }}
+      >
         <Card p={4}>
           <CardHeader title='Register' />
           <CardContent p={4} textAlign='left'>

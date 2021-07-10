@@ -16,7 +16,7 @@ import { VStack } from '@chakra-ui/react';
 
 const App = () => {
   return (
-    <VStack as='main'>
+    <VStack as='main' height='100vh'>
       <Header />
       <Switch>
         <Route exact path={RouteConstants.LOGIN}>
