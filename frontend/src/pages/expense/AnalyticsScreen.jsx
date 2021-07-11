@@ -8,7 +8,7 @@ const AnalyticsScreen = (props) => {
   return (
     <>
       <Helmet>
-        <title>Analytics</title>
+        <title>Analytics | Expense Tracker</title>
       </Helmet>
       <Box>
         <Heading fontWeight={300} letterSpacing={0.5}>

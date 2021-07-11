@@ -152,7 +152,7 @@ const OverviewScreen = (props) => {
   return (
     <>
       <Helmet>
-        <title>Overview</title>
+        <title>Overview | Expense Tracker</title>
       </Helmet>
       <Box>
         <Flex>

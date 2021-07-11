@@ -70,7 +70,7 @@ const RegisterScreen = (props) => {
   return (
     <>
       <Helmet>
-        <title>Register</title>
+        <title>Register | Expense Tracker</title>
       </Helmet>
       <Box
         style={{ margin: 'auto' }}

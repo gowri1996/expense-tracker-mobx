@@ -67,7 +67,7 @@ const LoginScreen = (props) => {
   return (
     <>
       <Helmet>
-        <title>Login</title>
+        <title>Login | Expense Tracker</title>
       </Helmet>
       <Box
         style={{ margin: 'auto' }}

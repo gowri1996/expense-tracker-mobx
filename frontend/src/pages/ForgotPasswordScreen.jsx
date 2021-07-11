@@ -65,7 +65,7 @@ const ForgotPasswordScreen = (props) => {
   return (
     <>
       <Helmet>
-        <title>Forgot Password</title>
+        <title>Forgot Password | Expense Tracker</title>
       </Helmet>
       <Box
         style={{ margin: 'auto' }}

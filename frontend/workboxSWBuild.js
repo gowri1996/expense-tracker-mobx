@@ -4,7 +4,7 @@ console.log('Generating SW started');
 
 workbox.generateSW({
   globDirectory: 'build/',
-  globPatterns: ['**/*.{html,css,js,jpg,jpeg,png}'],
+  globPatterns: ['**/*.{jpg,jpeg,png}'],
   swDest: 'build/sw.js',
 });
 

@@ -8,7 +8,7 @@ const NotFoundScreen = () => {
   return (
     <>
       <Helmet>
-        <title>Error</title>
+        <title>Error | Expense Tracker</title>
       </Helmet>
       <Box style={{ marginTop: '25vh' }} width={500} maxWidth={500}>
         <Card p={10}>
