@@ -7,7 +7,7 @@ import isEmpty from 'lodash.isempty';
 import { observer } from 'mobx-react';
 import { withContext } from '../app/datastores/RootStoreContext';
 
-export const secureComponent = (Page) => {
+const secureComponent = (Page) => {
   const ObserverPage = observer(Page);
   return withContext((props) => {
     const history = useHistory();
@@ -43,3 +43,5 @@ export const secureComponent = (Page) => {
     return <ObserverPage {...props} />;
   });
 };
+
+export default secureComponent;

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { useHistory } from 'react-router-dom';
 import { withContext } from '../app/datastores/RootStoreContext';
 
-export const unsecureComponent = (Page) => {
+const unsecureComponent = (Page) => {
   const ObserverPage = observer(Page);
   return withContext((props) => {
     const history = useHistory();
@@ -15,3 +15,5 @@ export const unsecureComponent = (Page) => {
     return <ObserverPage {...props} />;
   });
 };
+
+export default unsecureComponent;

@@ -13,7 +13,7 @@ import CardContent from '../components/card/CardContent';
 import CardHeader from '../components/card/CardHeader';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
-import { unsecureComponent } from '../components/UnsecureComponent';
+import unsecureComponent from '../components/UnsecureComponent';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 

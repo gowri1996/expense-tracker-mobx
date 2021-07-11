@@ -2,7 +2,7 @@ import { Box, Heading } from '@chakra-ui/react';
 
 import { Helmet } from 'react-helmet';
 import React from 'react';
-import { secureComponent } from '../../components/SecureComponent';
+import secureComponent from '../../components/SecureComponent';
 
 const AnalyticsScreen = (props) => {
   return (

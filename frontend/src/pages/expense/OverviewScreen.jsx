@@ -22,7 +22,7 @@ import ExpenseCard from './overviewScreen/ExpenseCard';
 import { FaPlus } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 import Service from '../../api/Service';
-import { secureComponent } from '../../components/SecureComponent';
+import secureComponent from '../../components/SecureComponent';
 
 const OverviewScreen = (props) => {
   const [loading, setLoading] = useState(false);

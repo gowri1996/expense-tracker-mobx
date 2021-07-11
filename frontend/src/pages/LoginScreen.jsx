@@ -17,7 +17,7 @@ import CardHeader from '../components/card/CardHeader';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
 import { addQueryParamsToUrl } from '../utils/UrlUtils';
-import { unsecureComponent } from '../components/UnsecureComponent';
+import unsecureComponent from '../components/UnsecureComponent';
 import { useState } from 'react';
 
 const LoginScreen = (props) => {
