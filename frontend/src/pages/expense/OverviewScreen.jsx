@@ -154,7 +154,7 @@ const OverviewScreen = (props) => {
       <Helmet>
         <title>Overview</title>
       </Helmet>
-      <Box p={4} height='full'>
+      <Box>
         <Flex>
           <Box>
             <Heading fontWeight={300} letterSpacing={0.5}>
@@ -176,7 +176,7 @@ const OverviewScreen = (props) => {
           </Box>
         </Flex>
         {props.rootStore.userStore.expenses.length > 0 ? (
-          <Wrap mt={5} mb={2} spacing='4'>
+          <Wrap mt={2} spacing='2'>
             {props.rootStore.userStore.expenses.map((expense) => (
               <WrapItem
                 key={expense._id}

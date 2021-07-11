@@ -13,10 +13,12 @@ const getNavLinks = () => {
     {
       ROUTE: RouteConstants.OVERVIEW,
       TEXT: 'Overview',
+      SHORT_TEXT: 'O',
     },
     {
       ROUTE: RouteConstants.ANALYTICS,
       TEXT: 'Analytics',
+      SHORT_TEXT: 'A',
     },
   ];
 };

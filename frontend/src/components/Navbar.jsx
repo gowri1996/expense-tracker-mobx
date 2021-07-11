@@ -1,4 +1,4 @@
-import { Box, Text, VStack, useColorModeValue } from '@chakra-ui/react';
+import { Box, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 
 import AppUtils from '../utils/AppUtils';
 import React from 'react';
@@ -14,25 +14,7 @@ const Navbar = (props) => {
 
   if (isEmpty(props.rootStore.userStore._id)) return <></>;
   return (
-    <Box
-      p={4}
-      as='nav'
-      position='sticky'
-      top='50px'
-      h='calc(100vh - 50px)'
-      boxShadow='sm'
-      overflowY='auto'
-      width={props.width}
-      display={{
-        xs: 'none',
-        sm: 'none',
-        md: 'block',
-        lg: 'block',
-        xl: 'block',
-        xxl: 'block',
-      }}
-      bg={bgColor}
-    >
+    <Box as='nav' bg={bgColor} {...props.styles}>
       <Box
         display={{
           xs: 'none',
@@ -43,7 +25,7 @@ const Navbar = (props) => {
           xxl: 'block',
         }}
       >
-        <VStack alignItems='flex-start' spacing='25px'>
+        <Stack direction='column' alignItems='flex-start' spacing='25'>
           {AppUtils.getNavLinks().map((nav) => {
             return (
               <Box
@@ -67,7 +49,7 @@ const Navbar = (props) => {
               </Box>
             );
           })}
-        </VStack>
+        </Stack>
       </Box>
       <Box
         display={{
@@ -79,7 +61,62 @@ const Navbar = (props) => {
           xxl: 'none',
         }}
       >
-        {/* Images for nav bar links */}
+        {/* TODO Images for nav bar links */}
+        <Stack direction='column' alignItems='flex-start' spacing='25'>
+          {AppUtils.getNavLinks().map((nav) => {
+            return (
+              <Box
+                py={2}
+                px={2}
+                width='full'
+                borderRadius={5}
+                key={nav.ROUTE}
+                as={RouterLink}
+                to={nav.ROUTE}
+                bg={
+                  nav.ROUTE === location.pathname
+                    ? selectedPathBgColor
+                    : undefined
+                }
+              >
+                <Text float='left'>{nav.SHORT_TEXT}</Text>
+              </Box>
+            );
+          })}
+        </Stack>
+      </Box>
+      <Box
+        display={{
+          xs: 'block',
+          sm: 'block',
+          md: 'none',
+          lg: 'none',
+          xl: 'none',
+          xxl: 'none',
+        }}
+      >
+        {/* TODO Images for nav bar links */}
+        <Stack direction='row' alignItems='flex-start' spacing='10'>
+          {AppUtils.getNavLinks().map((nav) => {
+            return (
+              <Box
+                py={1}
+                width='full'
+                borderRadius={5}
+                key={nav.ROUTE}
+                as={RouterLink}
+                to={nav.ROUTE}
+                bg={
+                  nav.ROUTE === location.pathname
+                    ? selectedPathBgColor
+                    : undefined
+                }
+              >
+                <Text textAlign='center'>{nav.SHORT_TEXT}</Text>
+              </Box>
+            );
+          })}
+        </Stack>
       </Box>
     </Box>
   );

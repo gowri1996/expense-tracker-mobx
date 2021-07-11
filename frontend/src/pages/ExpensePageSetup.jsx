@@ -1,31 +1,60 @@
-import { Box, Stack } from '@chakra-ui/react';
+import { Box, Stack, useMediaQuery } from '@chakra-ui/react';
 
 import Navbar from '../components/Navbar';
 import React from 'react';
 
 const ExpensePageSetup = (props) => {
+  const [isLargerThanMd] = useMediaQuery('(min-width: 768px)');
+
+  let navBarStyleProps = { boxShadow: 'sm' };
+
+  if (isLargerThanMd)
+    navBarStyleProps = {
+      p: 4,
+      position: 'sticky',
+      top: '50px',
+      overflowY: 'auto',
+      width: {
+        md: '100px',
+        xxl: '250px',
+      },
+      height: 'full',
+    };
+  else
+    navBarStyleProps = {
+      p: 1,
+      width: 'full',
+      overflowX: 'auto',
+      height: 'auto',
+    };
+
   return (
-    <Stack direction='row' style={{ marginTop: 0 }} width='full' height='full'>
-      <Navbar
-        width={{
-          md: '100px',
-          lg: '100px',
-          xl: '100px',
-          xxl: '250px',
-        }}
-      />
+    <Stack
+      direction={isLargerThanMd ? 'row' : 'column-reverse'}
+      overflowY='hidden'
+      style={{ marginTop: 0 }}
+      width='full'
+      height='full'
+    >
+      <Navbar styles={{ ...navBarStyleProps }} />
       <Box
-        style={{ margin: '0px' }}
+        overflowY='auto'
         width={{
           xs: 'full',
-          sm: 'full',
           md: 'calc(100% - 100px)',
           lg: 'calc(100% - 100px)',
           xl: 'calc(100% - 100px)',
           xxl: 'calc(100% - 250px)',
         }}
+        height={{
+          xs: 'calc(100% - 50px)',
+          sm: 'calc(100% - 50px)',
+          md: '100%',
+        }}
       >
-        {props.render()}
+        <Box p={2} width='full'>
+          {props.render()}
+        </Box>
       </Box>
     </Stack>
   );

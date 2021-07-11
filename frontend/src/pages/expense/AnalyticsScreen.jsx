@@ -10,12 +10,10 @@ const AnalyticsScreen = (props) => {
       <Helmet>
         <title>Analytics</title>
       </Helmet>
-      <Box p={4} width='full'>
-        <Box>
-          <Heading fontWeight={300} letterSpacing={0.5}>
-            Analytics
-          </Heading>
-        </Box>
+      <Box>
+        <Heading fontWeight={300} letterSpacing={0.5}>
+          Analytics
+        </Heading>
       </Box>
     </>
   );
