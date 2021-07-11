@@ -111,7 +111,7 @@ const RedirectScreen = (props) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <PageLoader title='Loading your account ...' />;
+  return <PageLoader title='Loading ...' />;
 };
 
 export default withContext(RedirectScreen);

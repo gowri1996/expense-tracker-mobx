@@ -10,6 +10,8 @@ import isEmpty from 'lodash.isempty';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 
+const timeout = 0;
+
 const generateHashPassword = (passwordPlainText) => {
   const hash = bcrypt.hashSync(passwordPlainText, 10);
   return hash;
@@ -53,7 +55,7 @@ const registerUserService = (request) => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -100,7 +102,7 @@ const loginUserService = (request) => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -133,7 +135,7 @@ const resetPasswordUserService = (request) => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -175,7 +177,7 @@ const getUserFullDetails = () => {
       } catch (err) {
         reject({ ...err, status: 400 });
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -219,7 +221,7 @@ const refreshTokens = (refreshToken) => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -248,7 +250,7 @@ const logoutUser = () => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -306,7 +308,7 @@ const createExpense = (request) => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -350,7 +352,7 @@ const deleteExpense = (expenseId) => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
@@ -393,7 +395,7 @@ const updateExpense = (expenseId, request) => {
       } catch (err) {
         reject(err);
       }
-    }, 1000);
+    }, timeout);
   });
 };
 
