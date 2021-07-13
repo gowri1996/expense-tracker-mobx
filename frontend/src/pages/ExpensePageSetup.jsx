@@ -3,7 +3,7 @@ import { Box, Stack, useMediaQuery } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import React from 'react';
 
-const ExpensePageSetup = (props) => {
+const ExpensePageSetup = ({ component }) => {
   const [isLargerThanMd] = useMediaQuery('(min-width: 768px)');
 
   let navBarStyleProps = { boxShadow: 'sm' };
@@ -53,7 +53,7 @@ const ExpensePageSetup = (props) => {
         }}
       >
         <Box p={2} width='full'>
-          {props.render()}
+          {component}
         </Box>
       </Box>
     </Stack>

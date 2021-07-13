@@ -36,10 +36,10 @@ const App = () => {
             <RedirectScreen />
           </Route>
           <Route exact path={RouteConstants.OVERVIEW}>
-            <ExpensePageSetup render={() => <OverviewScreen />} />
+            <ExpensePageSetup component={<OverviewScreen />} />
           </Route>
           <Route exact path={RouteConstants.ANALYTICS}>
-            <ExpensePageSetup render={() => <AnalyticsScreen />} />
+            <ExpensePageSetup component={<AnalyticsScreen />} />
           </Route>
           <Route exact path='*'>
             <NotFoundScreen />
