@@ -1,7 +1,6 @@
 import { Box, Center, HStack, Spacer, Text } from '@chakra-ui/react';
 
 import Card from '../components/card/Card';
-import CardContent from '../components/card/CardContent';
 import { Helmet } from 'react-helmet';
 
 const NotFoundScreen = () => {
@@ -12,7 +11,7 @@ const NotFoundScreen = () => {
       </Helmet>
       <Box style={{ marginTop: '25vh' }} width={500} maxWidth={500}>
         <Card p={10}>
-          <CardContent>
+          <Card.Content>
             <Center>
               <HStack>
                 <Text>404</Text>
@@ -22,7 +21,7 @@ const NotFoundScreen = () => {
                 <Text>This page could not be found</Text>
               </HStack>
             </Center>
-          </CardContent>
+          </Card.Content>
         </Card>
       </Box>
     </>

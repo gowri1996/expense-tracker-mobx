@@ -9,8 +9,6 @@ import {
 
 import AppUtils from '../utils/AppUtils';
 import Card from '../components/card/Card';
-import CardContent from '../components/card/CardContent';
-import CardHeader from '../components/card/CardHeader';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
 import unsecureComponent from '../components/UnsecureComponent';
@@ -79,8 +77,8 @@ const ForgotPasswordScreen = (props) => {
         }}
       >
         <Card p={4}>
-          <CardHeader title='Forgot Password' />
-          <CardContent p={4} textAlign='left'>
+          <Card.Header title='Forgot Password' />
+          <Card.Content p={4} textAlign='left'>
             <form onSubmit={onSubmit}>
               <FormControl isRequired>
                 <FormLabel>Email</FormLabel>
@@ -116,7 +114,7 @@ const ForgotPasswordScreen = (props) => {
                 </Button>
               </Box>
             </form>
-          </CardContent>
+          </Card.Content>
         </Card>
       </Box>
     </>

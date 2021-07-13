@@ -2,9 +2,6 @@ import { FaEdit, FaRegWindowClose } from 'react-icons/fa';
 import { IconButton, Tooltip } from '@chakra-ui/react';
 
 import Card from '../../../components/card/Card';
-import CardContent from '../../../components/card/CardContent';
-import CardFooter from '../../../components/card/CardFooter';
-import CardProperty from '../../../components/card/CardProperty';
 import React from 'react';
 import { observer } from 'mobx-react';
 
@@ -21,19 +18,19 @@ const ExpenseCard = (props) => {
 
   return (
     <Card py={1.5} px={4} borderRadius={10} width={props.width}>
-      <CardContent mt={1}>
-        <CardProperty label='Name' value={props.data.name} useTooltip={true} />
-        <CardProperty label='Category' value={props.data.category} />
-        <CardProperty label='Amount' value={props.data.expense} />
-        <CardProperty
+      <Card.Content mt={1}>
+        <Card.Property label='Name' value={props.data.name} useTooltip={true} />
+        <Card.Property label='Category' value={props.data.category} />
+        <Card.Property label='Amount' value={props.data.expense} />
+        <Card.Property
           label='Description'
           value={props.data.description}
           useTooltip={true}
         />
-        <CardProperty label='Created At' value={createdAt} />
-        <CardProperty label='Updated At' value={updatedAt} />
-      </CardContent>
-      <CardFooter
+        <Card.Property label='Created At' value={createdAt} />
+        <Card.Property label='Updated At' value={updatedAt} />
+      </Card.Content>
+      <Card.Footer
         actions={[
           <Tooltip label='Update Expense' fontSize='xs' placement='top'>
             <IconButton

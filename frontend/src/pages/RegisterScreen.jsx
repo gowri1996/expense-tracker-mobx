@@ -12,8 +12,6 @@ import { Link as RouterLink, useHistory } from 'react-router-dom';
 
 import AppUtils from '../utils/AppUtils';
 import Card from '../components/card/Card';
-import CardContent from '../components/card/CardContent';
-import CardHeader from '../components/card/CardHeader';
 import { Helmet } from 'react-helmet';
 import RouteConstants from '../constants/RouteConstants';
 import unsecureComponent from '../components/UnsecureComponent';
@@ -84,8 +82,8 @@ const RegisterScreen = (props) => {
         }}
       >
         <Card p={4}>
-          <CardHeader title='Register' />
-          <CardContent p={4} textAlign='left'>
+          <Card.Header title='Register' />
+          <Card.Content p={4} textAlign='left'>
             <form onSubmit={onSubmit}>
               <FormControl isRequired>
                 <FormLabel>First Name</FormLabel>
@@ -156,7 +154,7 @@ const RegisterScreen = (props) => {
                 </Button>
               </Box>
             </form>
-          </CardContent>
+          </Card.Content>
         </Card>
       </Box>
     </>

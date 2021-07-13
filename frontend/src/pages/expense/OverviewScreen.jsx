@@ -15,7 +15,6 @@ import React, { useEffect, useState } from 'react';
 
 import AppUtils from '../../utils/AppUtils';
 import Card from '../../components/card/Card';
-import CardContent from '../../components/card/CardContent';
 import CreateUpdateExpenseModal from './overviewScreen/CreateUpdateExpenseModal';
 import DeleteExpenseModal from './overviewScreen/DeleteExpenseModal';
 import ExpenseCard from './overviewScreen/ExpenseCard';
@@ -213,14 +212,14 @@ const OverviewScreen = (props) => {
             }}
           >
             <Card p={7}>
-              <CardContent>
+              <Card.Content>
                 <Center>
                   <Text>
                     {`Hey ${props.rootStore.userStore.firstName}, add some expenses `}
                     &#128512;
                   </Text>
                 </Center>
-              </CardContent>
+              </Card.Content>
             </Card>
           </Box>
         )}

@@ -1,4 +1,8 @@
 import { Box } from '@chakra-ui/react';
+import CardContent from './CardContent';
+import CardFooter from './CardFooter';
+import CardHeader from './CardHeader';
+import CardProperty from './CardProperty';
 import { useColorModeValue } from '@chakra-ui/react';
 
 const Card = ({ children, ...rest }) => {
@@ -14,5 +18,10 @@ const Card = ({ children, ...rest }) => {
     </Box>
   );
 };
+
+Card.Content = CardContent;
+Card.Header = CardHeader;
+Card.Property = CardProperty;
+Card.Footer = CardFooter;
 
 export default Card;
