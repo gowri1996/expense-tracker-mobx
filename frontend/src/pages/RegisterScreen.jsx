@@ -6,22 +6,22 @@ import {
   Input,
   Link,
   useToast,
-} from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
-import AppUtils from '../utils/AppUtils';
-import Card from '../components/card/Card';
-import { Helmet } from 'react-helmet';
-import RouteConstants from '../constants/RouteConstants';
-import unsecureComponent from '../components/UnsecureComponent';
+import AppUtils from "../utils/AppUtils";
+import Card from "../components/card/Card";
+import { Helmet } from "react-helmet";
+import RouteConstants from "../constants/RouteConstants";
+import unsecureComponent from "../components/UnsecureComponent";
 
 const RegisterScreen = (props) => {
   const [formValues, setFormValues] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -46,8 +46,8 @@ const RegisterScreen = (props) => {
       .then(() => {
         toast(
           AppUtils.successToastMessage({
-            title: 'Registration success',
-            description: 'Login using the credentials',
+            title: "Registration success",
+            description: "Login using the credentials",
           })
         );
         history.replace(RouteConstants.LOGIN);
@@ -55,7 +55,7 @@ const RegisterScreen = (props) => {
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: 'Registration failed',
+            title: "Registration failed",
             description: error.message,
           })
         );
@@ -71,25 +71,25 @@ const RegisterScreen = (props) => {
         <title>Register | Expense Tracker</title>
       </Helmet>
       <Box
-        style={{ margin: 'auto' }}
+        style={{ margin: "auto" }}
         width={{
-          xs: '95%',
-          sm: '70%',
-          md: '50%',
-          lg: '40%',
-          xl: '40%',
-          xxl: '35%',
+          xs: "95%",
+          sm: "70%",
+          md: "50%",
+          lg: "40%",
+          xl: "40%",
+          xxl: "35%",
         }}
       >
         <Card p={4}>
-          <Card.Header title='Register' />
-          <Card.Content p={4} textAlign='left'>
+          <Card.Header title="Register" />
+          <Card.Content p={4} textAlign="left">
             <form onSubmit={onSubmit}>
               <FormControl isRequired>
                 <FormLabel>First Name</FormLabel>
                 <Input
-                  name='firstName'
-                  placeholder='Enter your first name'
+                  name="firstName"
+                  placeholder="Enter your first name"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -101,8 +101,8 @@ const RegisterScreen = (props) => {
               <FormControl mt={2} isRequired>
                 <FormLabel>Last Name</FormLabel>
                 <Input
-                  name='lastName'
-                  placeholder='Enter your last name'
+                  name="lastName"
+                  placeholder="Enter your last name"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -114,9 +114,9 @@ const RegisterScreen = (props) => {
               <FormControl mt={2} isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
-                  name='email'
-                  type='email'
-                  placeholder='Enter your email address'
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email address"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -128,9 +128,9 @@ const RegisterScreen = (props) => {
               <FormControl mt={4} isRequired>
                 <FormLabel>Password</FormLabel>
                 <Input
-                  name='password'
-                  type='password'
-                  placeholder='Enter your password'
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -139,17 +139,17 @@ const RegisterScreen = (props) => {
                   }
                 />
               </FormControl>
-              <Box textAlign='left' pt={3}>
+              <Box textAlign="left" pt={3}>
                 <Link
                   as={RouterLink}
                   to={RouteConstants.LOGIN}
-                  color='blue.500'
+                  color="blue.500"
                 >
                   Already have an account ?
                 </Link>
               </Box>
-              <Box mt={7} textAlign='center'>
-                <Button type='submit' isLoading={loading}>
+              <Box mt={7} textAlign="center">
+                <Button type="submit" isLoading={loading}>
                   Sign Up
                 </Button>
               </Box>

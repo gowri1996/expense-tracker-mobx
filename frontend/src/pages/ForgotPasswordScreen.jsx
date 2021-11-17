@@ -5,20 +5,20 @@ import {
   FormLabel,
   Input,
   useToast,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import AppUtils from '../utils/AppUtils';
-import Card from '../components/card/Card';
-import { Helmet } from 'react-helmet';
-import RouteConstants from '../constants/RouteConstants';
-import unsecureComponent from '../components/UnsecureComponent';
-import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import AppUtils from "../utils/AppUtils";
+import Card from "../components/card/Card";
+import { Helmet } from "react-helmet";
+import RouteConstants from "../constants/RouteConstants";
+import unsecureComponent from "../components/UnsecureComponent";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 const ForgotPasswordScreen = (props) => {
   const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -41,8 +41,8 @@ const ForgotPasswordScreen = (props) => {
       .then(() => {
         toast(
           AppUtils.successToastMessage({
-            title: 'Reset password success',
-            description: 'Login using the credentials',
+            title: "Reset password success",
+            description: "Login using the credentials",
           })
         );
         history.replace(RouteConstants.LOGIN);
@@ -50,7 +50,7 @@ const ForgotPasswordScreen = (props) => {
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: 'Reset password failed',
+            title: "Reset password failed",
             description: error.message,
           })
         );
@@ -66,26 +66,26 @@ const ForgotPasswordScreen = (props) => {
         <title>Forgot Password | Expense Tracker</title>
       </Helmet>
       <Box
-        style={{ margin: 'auto' }}
+        style={{ margin: "auto" }}
         width={{
-          xs: '95%',
-          sm: '70%',
-          md: '50%',
-          lg: '40%',
-          xl: '40%',
-          xxl: '35%',
+          xs: "95%",
+          sm: "70%",
+          md: "50%",
+          lg: "40%",
+          xl: "40%",
+          xxl: "35%",
         }}
       >
         <Card p={4}>
-          <Card.Header title='Forgot Password' />
-          <Card.Content p={4} textAlign='left'>
+          <Card.Header title="Forgot Password" />
+          <Card.Content p={4} textAlign="left">
             <form onSubmit={onSubmit}>
               <FormControl isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
-                  name='email'
-                  type='email'
-                  placeholder='Enter your email address'
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email address"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -97,9 +97,9 @@ const ForgotPasswordScreen = (props) => {
               <FormControl mt={4} isRequired>
                 <FormLabel>New Password</FormLabel>
                 <Input
-                  name='password'
-                  type='password'
-                  placeholder='Enter your password'
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -108,8 +108,8 @@ const ForgotPasswordScreen = (props) => {
                   }
                 />
               </FormControl>
-              <Box mt={8} textAlign='center'>
-                <Button type='submit' isLoading={loading}>
+              <Box mt={8} textAlign="center">
+                <Button type="submit" isLoading={loading}>
                   Submit
                 </Button>
               </Box>

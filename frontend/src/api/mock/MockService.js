@@ -1,14 +1,14 @@
 import {
   isAuthenticatedUser,
   isRefreshTokenValid,
-} from '../../utils/AuthUtils';
+} from "../../utils/AuthUtils";
 
-import StringConstants from '../../constants/StringConstants';
-import bcrypt from 'bcryptjs';
-import cookies from 'react-cookies';
-import isEmpty from 'lodash.isempty';
-import jwt from 'jsonwebtoken';
-import { v4 as uuidv4 } from 'uuid';
+import StringConstants from "../../constants/StringConstants";
+import bcrypt from "bcryptjs";
+import cookies from "react-cookies";
+import isEmpty from "lodash.isempty";
+import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 
 const timeout = 0;
 
@@ -25,14 +25,14 @@ const registerUserService = (request) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
           localUsers = [];
-          localStorage.setItem('users', JSON.stringify(localUsers));
+          localStorage.setItem("users", JSON.stringify(localUsers));
         }
 
         if (localUsers.find((localUser) => localUser.email === request.email)) {
-          reject({ message: 'Email address is already registered' });
+          reject({ message: "Email address is already registered" });
           return;
         }
 
@@ -46,10 +46,10 @@ const registerUserService = (request) => {
         user.password = generateHashPassword(request.password);
 
         localUsers.push(user);
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
         resolve({
           status: 200,
-          message: 'User registered successfully',
+          message: "User registered successfully",
           data: {},
         });
       } catch (err) {
@@ -63,29 +63,29 @@ const loginUserService = (request) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
-          reject({ message: 'Invalid Email / Password' });
+          reject({ message: "Invalid Email / Password" });
           return;
         }
         const user = localUsers.find(
           (localUser) => localUser.email === request.email
         );
         if (isEmpty(user) || !checkPassword(request.password, user.password)) {
-          reject({ message: 'Invalid Email / Password' });
+          reject({ message: "Invalid Email / Password" });
           return;
         }
 
-        const token = jwt.sign({ email: request.email }, 'token', {
-          expiresIn: '24h',
-          issuer: 'expense-tracker',
+        const token = jwt.sign({ email: request.email }, "token", {
+          expiresIn: "24h",
+          issuer: "expense-tracker",
         });
         const refreshToken = jwt.sign(
           { email: request.email },
-          'refreshToken',
+          "refreshToken",
           {
-            expiresIn: '7d',
-            issuer: 'expense-tracker',
+            expiresIn: "7d",
+            issuer: "expense-tracker",
           }
         );
 
@@ -93,10 +93,10 @@ const loginUserService = (request) => {
         user.token = token;
         user.refreshToken = refreshToken;
 
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
         resolve({
           status: 200,
-          message: 'Logged in successfully',
+          message: "Logged in successfully",
           data: { token, refreshToken },
         });
       } catch (err) {
@@ -110,26 +110,26 @@ const resetPasswordUserService = (request) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
-          reject({ message: 'Invalid Email / Password' });
+          reject({ message: "Invalid Email / Password" });
           return;
         }
         const user = localUsers.find(
           (localUser) => localUser.email === request.email
         );
         if (isEmpty(user)) {
-          reject({ message: 'Email address is not registered' });
+          reject({ message: "Email address is not registered" });
           return;
         }
 
         // change to new password
         user.password = generateHashPassword(request.password);
 
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
         resolve({
           status: 200,
-          message: 'Password reset successfully',
+          message: "Password reset successfully",
           data: {},
         });
       } catch (err) {
@@ -143,21 +143,21 @@ const getUserFullDetails = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
-          reject({ message: 'Invalid Email / Password', status: 400 });
+          reject({ message: "Invalid Email / Password", status: 400 });
           return;
         }
 
         const token = cookies.load(StringConstants.COOKIE_TOKEN);
         const user = localUsers.find((localUser) => localUser.token === token);
         if (isEmpty(user)) {
-          reject({ message: 'Invalid credentials', status: 400 });
+          reject({ message: "Invalid credentials", status: 400 });
           return;
         }
 
         if (!isAuthenticatedUser()) {
-          reject({ message: 'Token Expired', status: 401 });
+          reject({ message: "Token Expired", status: 401 });
           return;
         }
 
@@ -171,7 +171,7 @@ const getUserFullDetails = () => {
 
         resolve({
           status: 200,
-          message: 'Password reset successfully',
+          message: "Password reset successfully",
           data,
         });
       } catch (err) {
@@ -185,9 +185,9 @@ const refreshTokens = (refreshToken) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
-          reject({ message: 'Invalid Email / Password' });
+          reject({ message: "Invalid Email / Password" });
           return;
         }
 
@@ -195,27 +195,27 @@ const refreshTokens = (refreshToken) => {
           (localUser) => localUser.refreshToken === refreshToken
         );
         if (isEmpty(user)) {
-          reject({ message: 'Invalid credentials' });
+          reject({ message: "Invalid credentials" });
           return;
         }
 
         if (!isRefreshTokenValid()) {
-          reject({ message: 'Token Expired' });
+          reject({ message: "Token Expired" });
           return;
         }
 
-        const token = jwt.sign({ email: user.email }, 'token', {
-          expiresIn: '24h',
-          issuer: 'expense-tracker',
+        const token = jwt.sign({ email: user.email }, "token", {
+          expiresIn: "24h",
+          issuer: "expense-tracker",
         });
 
         // store new token and refreshToken
         user.token = token;
 
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
         resolve({
           status: 200,
-          message: 'Logged in successfully',
+          message: "Logged in successfully",
           data: { token, refreshToken },
         });
       } catch (err) {
@@ -229,22 +229,22 @@ const logoutUser = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
 
         const token = cookies.load(StringConstants.COOKIE_TOKEN);
         const user = localUsers.find((localUser) => localUser.token === token);
         if (isEmpty(user)) {
-          reject({ message: 'Invalid credentials', status: 400 });
+          reject({ message: "Invalid credentials", status: 400 });
           return;
         }
 
         user.token = null;
         user.refreshToken = null;
 
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
         resolve({
           status: 200,
-          message: 'Logged out successfully',
+          message: "Logged out successfully",
           data: {},
         });
       } catch (err) {
@@ -258,9 +258,9 @@ const getExpenseCategories = () => {
   return new Promise((resolve, reject) => {
     try {
       resolve([
-        { _id: 'food', name: 'Food' },
-        { _id: 'party', name: 'Party' },
-        { _id: 'college', name: 'College' },
+        { _id: "food", name: "Food" },
+        { _id: "party", name: "Party" },
+        { _id: "college", name: "College" },
       ]);
     } catch (err) {
       reject(err);
@@ -272,21 +272,21 @@ const createExpense = (request) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
-          reject({ message: 'Invalid Email / Password', status: 400 });
+          reject({ message: "Invalid Email / Password", status: 400 });
           return;
         }
 
         const token = cookies.load(StringConstants.COOKIE_TOKEN);
         const user = localUsers.find((localUser) => localUser.token === token);
         if (isEmpty(user)) {
-          reject({ message: 'Invalid credentials', status: 400 });
+          reject({ message: "Invalid credentials", status: 400 });
           return;
         }
 
         if (!isAuthenticatedUser()) {
-          reject({ message: 'Token Expired', status: 401 });
+          reject({ message: "Token Expired", status: 401 });
           return;
         }
 
@@ -298,11 +298,11 @@ const createExpense = (request) => {
           updatedAt: currentTime.toString(),
         };
         user.expenses = [...user.expenses, expense];
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
 
         resolve({
           status: 200,
-          message: 'Expense created successfully',
+          message: "Expense created successfully",
           data: expense,
         });
       } catch (err) {
@@ -316,21 +316,21 @@ const deleteExpense = (expenseId) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
-          reject({ message: 'Invalid Email / Password', status: 400 });
+          reject({ message: "Invalid Email / Password", status: 400 });
           return;
         }
 
         const token = cookies.load(StringConstants.COOKIE_TOKEN);
         const user = localUsers.find((localUser) => localUser.token === token);
         if (isEmpty(user)) {
-          reject({ message: 'Invalid credentials', status: 400 });
+          reject({ message: "Invalid credentials", status: 400 });
           return;
         }
 
         if (!isAuthenticatedUser()) {
-          reject({ message: 'Token Expired', status: 401 });
+          reject({ message: "Token Expired", status: 401 });
           return;
         }
 
@@ -342,11 +342,11 @@ const deleteExpense = (expenseId) => {
             user.expenses.findIndex((expense) => expense._id === expenseId),
             1
           );
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
 
         resolve({
           status: 200,
-          message: 'Expense deleted successfully',
+          message: "Expense deleted successfully",
           data: expense,
         });
       } catch (err) {
@@ -360,21 +360,21 @@ const updateExpense = (expenseId, request) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        let localUsers = JSON.parse(localStorage.getItem('users'));
+        let localUsers = JSON.parse(localStorage.getItem("users"));
         if (!Array.isArray(localUsers)) {
-          reject({ message: 'Invalid Email / Password', status: 400 });
+          reject({ message: "Invalid Email / Password", status: 400 });
           return;
         }
 
         const token = cookies.load(StringConstants.COOKIE_TOKEN);
         const user = localUsers.find((localUser) => localUser.token === token);
         if (isEmpty(user)) {
-          reject({ message: 'Invalid credentials', status: 400 });
+          reject({ message: "Invalid credentials", status: 400 });
           return;
         }
 
         if (!isAuthenticatedUser()) {
-          reject({ message: 'Token Expired', status: 401 });
+          reject({ message: "Token Expired", status: 401 });
           return;
         }
 
@@ -385,11 +385,11 @@ const updateExpense = (expenseId, request) => {
           Object.assign(expense, expense, request, {
             updatedAt: new Date().toString(),
           });
-        localStorage.setItem('users', JSON.stringify(localUsers));
+        localStorage.setItem("users", JSON.stringify(localUsers));
 
         resolve({
           status: 200,
-          message: 'Expense updated successfully',
+          message: "Expense updated successfully",
           data: expense,
         });
       } catch (err) {

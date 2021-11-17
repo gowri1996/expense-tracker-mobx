@@ -4,12 +4,12 @@ import {
   makeObservable,
   observable,
   runInAction,
-} from 'mobx';
+} from "mobx";
 
-import ExpenseStore from './ExpenseStore';
-import Service from '../../api/Service';
-import { deleteToken } from '../../utils/AuthUtils';
-import isEmpty from 'lodash.isempty';
+import ExpenseStore from "./ExpenseStore";
+import Service from "../../api/Service";
+import { deleteToken } from "../../utils/AuthUtils";
+import isEmpty from "lodash.isempty";
 
 class UserStore {
   _id = null;
@@ -42,7 +42,7 @@ class UserStore {
   }
 
   get name() {
-    return this.firstName + ' ' + this.lastName;
+    return this.firstName + " " + this.lastName;
   }
 
   resetUser = () => {

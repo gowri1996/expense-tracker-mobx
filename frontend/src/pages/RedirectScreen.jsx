@@ -2,20 +2,20 @@ import {
   deleteToken,
   getUserDataFromCookie,
   isAuthenticatedUser,
-} from '../utils/AuthUtils';
+} from "../utils/AuthUtils";
 import {
   getAllParamsAsStringFromUrl,
   getParamsFromUrl,
-} from '../utils/UrlUtils';
-import { useHistory, useLocation } from 'react-router-dom';
+} from "../utils/UrlUtils";
+import { useHistory, useLocation } from "react-router-dom";
 
-import PageLoader from '../components/PageLoader';
-import RouteConstants from '../constants/RouteConstants';
-import StringConstants from '../constants/StringConstants';
-import cookies from 'react-cookies';
-import isEmpty from 'lodash.isempty';
-import { useEffect } from 'react';
-import { withContext } from '../app/datastores/RootStoreContext';
+import PageLoader from "../components/PageLoader";
+import RouteConstants from "../constants/RouteConstants";
+import StringConstants from "../constants/StringConstants";
+import cookies from "react-cookies";
+import isEmpty from "lodash.isempty";
+import { useEffect } from "react";
+import { withContext } from "../app/datastores/RootStoreContext";
 
 const RedirectScreen = (props) => {
   const history = useHistory();
@@ -111,7 +111,7 @@ const RedirectScreen = (props) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <PageLoader title='Loading ...' />;
+  return <PageLoader title="Loading ..." />;
 };
 
 export default withContext(RedirectScreen);

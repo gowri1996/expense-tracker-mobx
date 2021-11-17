@@ -13,16 +13,16 @@ import {
   useColorMode,
   useColorModeValue,
   useToast,
-} from '@chakra-ui/react';
-import { FaHamburger, FaInfo, FaMoon, FaSun } from 'react-icons/fa';
-import React, { useState } from 'react';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { FaHamburger, FaInfo, FaMoon, FaSun } from "react-icons/fa";
+import React, { useState } from "react";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
-import AppUtils from '../utils/AppUtils';
-import RouteConstants from '../constants/RouteConstants';
-import ThemeConstants from '../constants/ThemeConstants';
-import isEmpty from 'lodash.isempty';
-import { withContext } from '../app/datastores/RootStoreContext';
+import AppUtils from "../utils/AppUtils";
+import RouteConstants from "../constants/RouteConstants";
+import ThemeConstants from "../constants/ThemeConstants";
+import isEmpty from "lodash.isempty";
+import { withContext } from "../app/datastores/RootStoreContext";
 
 const Header = (props) => {
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ const Header = (props) => {
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: 'User could not be logged out',
+            title: "User could not be logged out",
             description: error.message,
           })
         );
@@ -52,11 +52,11 @@ const Header = (props) => {
 
   return (
     <Box
-      as='header'
-      height='50px'
-      width='full'
-      position='sticky'
-      boxShadow='sm'
+      as="header"
+      height="50px"
+      width="full"
+      position="sticky"
+      boxShadow="sm"
       backgroundColor={useColorModeValue(
         ThemeConstants.LIGHT_THEME_PRIMARY_COLOR,
         ThemeConstants.DARK_THEME_PRIMARY_COLOR
@@ -67,28 +67,28 @@ const Header = (props) => {
       <Flex>
         <Box>
           <IconButton
-            aria-label='homeIcon'
+            aria-label="homeIcon"
             as={RouterLink}
             to={RouteConstants.LOGIN}
             icon={<FaInfo />}
             mt={1}
             mr={2}
-            size='md'
+            size="md"
           />
         </Box>
         <Spacer />
         <Box>
           <Tooltip
-            label='Toggle light/dark theme'
-            fontSize='xs'
-            placement='left'
+            label="Toggle light/dark theme"
+            fontSize="xs"
+            placement="left"
           >
             <IconButton
-              aria-label='themeIcon'
+              aria-label="themeIcon"
               icon={useColorModeValue(<FaSun />, <FaMoon />)}
               mt={1}
               mr={2}
-              size='md'
+              size="md"
               onClick={() => {
                 toggleColorMode();
               }}
@@ -96,11 +96,11 @@ const Header = (props) => {
           </Tooltip>
           {!isEmpty(props.rootStore.userStore._id) && (
             <Menu>
-              <Tooltip label='Actions' fontSize='xs' placement='left'>
+              <Tooltip label="Actions" fontSize="xs" placement="left">
                 <MenuButton
                   as={Button}
-                  aria-label='actions'
-                  size='md'
+                  aria-label="actions"
+                  size="md"
                   isLoading={loading}
                 >
                   <Icon as={FaHamburger} />

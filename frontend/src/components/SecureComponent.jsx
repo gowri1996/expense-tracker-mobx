@@ -1,11 +1,11 @@
-import { Box, Link, Text } from '@chakra-ui/react';
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
+import { Box, Link, Text } from "@chakra-ui/react";
+import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 
-import RouteConstants from '../constants/RouteConstants';
-import { isAuthenticatedUser } from '../utils/AuthUtils';
-import isEmpty from 'lodash.isempty';
-import { observer } from 'mobx-react';
-import { withContext } from '../app/datastores/RootStoreContext';
+import RouteConstants from "../constants/RouteConstants";
+import { isAuthenticatedUser } from "../utils/AuthUtils";
+import isEmpty from "lodash.isempty";
+import { observer } from "mobx-react";
+import { withContext } from "../app/datastores/RootStoreContext";
 
 const secureComponent = (Page) => {
   const ObserverPage = observer(Page);
@@ -18,9 +18,9 @@ const secureComponent = (Page) => {
       let route = RouteConstants.REDIRECT;
       if (location && location.pathname) {
         let searchParams = location.search
-          ? '&' + location.search.slice(1)
-          : '';
-        route += '?redirect=' + location.pathname + searchParams;
+          ? "&" + location.search.slice(1)
+          : "";
+        route += "?redirect=" + location.pathname + searchParams;
       }
       history.replace(route);
       return <></>;
@@ -31,8 +31,8 @@ const secureComponent = (Page) => {
         <Box>
           <Text>
             You're not logged in to the system. Try to
-            <Link color='blue.500' as={RouterLink} to={RouteConstants.LOGIN}>
-              {' '}
+            <Link color="blue.500" as={RouterLink} to={RouteConstants.LOGIN}>
+              {" "}
               Login
             </Link>
           </Text>

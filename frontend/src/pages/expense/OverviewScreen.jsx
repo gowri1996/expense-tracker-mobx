@@ -10,18 +10,18 @@ import {
   Wrap,
   WrapItem,
   useToast,
-} from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 
-import AppUtils from '../../utils/AppUtils';
-import Card from '../../components/card/Card';
-import CreateUpdateExpenseModal from './overviewScreen/CreateUpdateExpenseModal';
-import DeleteExpenseModal from './overviewScreen/DeleteExpenseModal';
-import ExpenseCard from './overviewScreen/ExpenseCard';
-import { FaPlus } from 'react-icons/fa';
-import { Helmet } from 'react-helmet';
-import Service from '../../api/Service';
-import secureComponent from '../../components/SecureComponent';
+import AppUtils from "../../utils/AppUtils";
+import Card from "../../components/card/Card";
+import CreateUpdateExpenseModal from "./overviewScreen/CreateUpdateExpenseModal";
+import DeleteExpenseModal from "./overviewScreen/DeleteExpenseModal";
+import ExpenseCard from "./overviewScreen/ExpenseCard";
+import { FaPlus } from "react-icons/fa";
+import { Helmet } from "react-helmet";
+import Service from "../../api/Service";
+import secureComponent from "../../components/SecureComponent";
 
 const OverviewScreen = (props) => {
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ const OverviewScreen = (props) => {
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: 'Could not load categories',
+            title: "Could not load categories",
             description: error.message,
           })
         );
@@ -74,14 +74,14 @@ const OverviewScreen = (props) => {
         setCreateUpdateExpenseModalVisible(false);
         toast(
           AppUtils.successToastMessage({
-            title: 'Expense created',
+            title: "Expense created",
           })
         );
       })
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: 'Expense cannot be added',
+            title: "Expense cannot be added",
             description: error.message,
           })
         );
@@ -105,14 +105,14 @@ const OverviewScreen = (props) => {
         setCreateUpdateExpenseModalVisible(false);
         toast(
           AppUtils.successToastMessage({
-            title: 'Expense updated',
+            title: "Expense updated",
           })
         );
       })
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: 'Expense cannot be updated',
+            title: "Expense cannot be updated",
             description: error.message,
           })
         );
@@ -131,14 +131,14 @@ const OverviewScreen = (props) => {
         setDeleteExpenseModalVisible(false);
         toast(
           AppUtils.successToastMessage({
-            title: 'Expense deleted',
+            title: "Expense deleted",
           })
         );
       })
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: 'Expense cannot be deleted',
+            title: "Expense cannot be deleted",
             description: error.message,
           })
         );
@@ -162,11 +162,11 @@ const OverviewScreen = (props) => {
           </Box>
           <Spacer />
           <Box>
-            <Tooltip label='Create Expense' placement='left' fontSize='sm'>
+            <Tooltip label="Create Expense" placement="left" fontSize="sm">
               <IconButton
-                aria-label='createExpenseIcon'
+                aria-label="createExpenseIcon"
                 icon={<FaPlus />}
-                size='md'
+                size="md"
                 onClick={() => {
                   setCreateUpdateExpenseModalVisible(true);
                 }}
@@ -175,20 +175,20 @@ const OverviewScreen = (props) => {
           </Box>
         </Flex>
         {props.rootStore.userStore.expenses.length > 0 ? (
-          <Wrap mt={2} spacing='2'>
+          <Wrap mt={2} spacing="2">
             {props.rootStore.userStore.expenses.map((expense) => (
               <WrapItem
                 key={expense._id}
                 width={{
-                  xs: 'full',
-                  sm: 'calc(calc((100% / 2)) - 20px)',
-                  xl: 'calc(calc((100% / 3)) - 20px)',
-                  xxl: 'calc(calc((100% / 3)) - 20px)',
+                  xs: "full",
+                  sm: "calc(calc((100% / 2)) - 20px)",
+                  xl: "calc(calc((100% / 3)) - 20px)",
+                  xxl: "calc(calc((100% / 3)) - 20px)",
                 }}
               >
                 <ExpenseCard
                   data={expense}
-                  width='full'
+                  width="full"
                   onUpdateExpenseClick={() => {
                     setSelectedExpense(expense);
                     setCreateUpdateExpenseModalVisible(true);
@@ -203,12 +203,12 @@ const OverviewScreen = (props) => {
           </Wrap>
         ) : (
           <Box
-            mt='15vh'
-            mx='auto'
+            mt="15vh"
+            mx="auto"
             width={{
-              xs: '70%',
-              sm: '70%',
-              md: '50%',
+              xs: "70%",
+              sm: "70%",
+              md: "50%",
             }}
           >
             <Card p={7}>

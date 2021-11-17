@@ -1,6 +1,6 @@
-import { getColor, mode } from '@chakra-ui/theme-tools';
+import { getColor, mode } from "@chakra-ui/theme-tools";
 
-import ThemeConstants from '../../../../constants/ThemeConstants';
+import ThemeConstants from "../../../../constants/ThemeConstants";
 
 const select = {
   variants: {
@@ -22,7 +22,7 @@ const select = {
             borderColor: color,
             boxShadow: `0 0 0 1.5px ${rawColor}`,
           },
-          '> option': {
+          "> option": {
             bg: color,
           },
         },

@@ -7,21 +7,21 @@ import {
   Input,
   Link,
   useToast,
-} from '@chakra-ui/react';
-import { Link as RouterLink, useHistory } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
-import AppUtils from '../utils/AppUtils';
-import Card from '../components/card/Card';
-import { Helmet } from 'react-helmet';
-import RouteConstants from '../constants/RouteConstants';
-import { addQueryParamsToUrl } from '../utils/UrlUtils';
-import unsecureComponent from '../components/UnsecureComponent';
-import { useState } from 'react';
+import AppUtils from "../utils/AppUtils";
+import Card from "../components/card/Card";
+import { Helmet } from "react-helmet";
+import RouteConstants from "../constants/RouteConstants";
+import { addQueryParamsToUrl } from "../utils/UrlUtils";
+import unsecureComponent from "../components/UnsecureComponent";
+import { useState } from "react";
 
 const LoginScreen = (props) => {
   const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,7 @@ const LoginScreen = (props) => {
         console.log(error);
         toast(
           AppUtils.errorToastMessage({
-            title: 'Login failed',
+            title: "Login failed",
             description: error.message,
           })
         );
@@ -68,26 +68,26 @@ const LoginScreen = (props) => {
         <title>Login | Expense Tracker</title>
       </Helmet>
       <Box
-        style={{ margin: 'auto' }}
+        style={{ margin: "auto" }}
         width={{
-          xs: '95%',
-          sm: '70%',
-          md: '50%',
-          lg: '40%',
-          xl: '40%',
-          xxl: '35%',
+          xs: "95%",
+          sm: "70%",
+          md: "50%",
+          lg: "40%",
+          xl: "40%",
+          xxl: "35%",
         }}
       >
         <Card p={4}>
-          <Card.Header title='Login' />
-          <Card.Content p={4} textAlign='left'>
+          <Card.Header title="Login" />
+          <Card.Content p={4} textAlign="left">
             <form onSubmit={onSubmit}>
               <FormControl isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
-                  name='email'
-                  type='email'
-                  placeholder='Enter your email address'
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email address"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -99,9 +99,9 @@ const LoginScreen = (props) => {
               <FormControl mt={4} isRequired>
                 <FormLabel>Password</FormLabel>
                 <Input
-                  name='password'
-                  type='password'
-                  placeholder='Enter your password'
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -110,7 +110,7 @@ const LoginScreen = (props) => {
                   }
                 />
               </FormControl>
-              <HStack pt={5} fontSize={15} justifyContent='space-between'>
+              <HStack pt={5} fontSize={15} justifyContent="space-between">
                 <Link as={RouterLink} to={RouteConstants.REGISTER}>
                   Don't have an account?
                 </Link>
@@ -118,8 +118,8 @@ const LoginScreen = (props) => {
                   Forgot password
                 </Link>
               </HStack>
-              <Box mt={7} textAlign='center'>
-                <Button type='submit' isLoading={loading}>
+              <Box mt={7} textAlign="center">
+                <Button type="submit" isLoading={loading}>
                   Sign In
                 </Button>
               </Box>

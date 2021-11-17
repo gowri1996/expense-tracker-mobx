@@ -1,6 +1,6 @@
-import { getColor, mode } from '@chakra-ui/theme-tools';
+import { getColor, mode } from "@chakra-ui/theme-tools";
 
-import ThemeConstants from '../../../../constants/ThemeConstants';
+import ThemeConstants from "../../../../constants/ThemeConstants";
 
 const textarea = {
   variants: {

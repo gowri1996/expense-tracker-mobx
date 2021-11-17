@@ -1,5 +1,5 @@
-import ThemeConstants from '../../../../constants/ThemeConstants';
-import { mode } from '@chakra-ui/theme-tools';
+import ThemeConstants from "../../../../constants/ThemeConstants";
+import { mode } from "@chakra-ui/theme-tools";
 
 const button = {
   variants: {
@@ -12,7 +12,7 @@ const button = {
         ThemeConstants.LIGHT_THEME_PRIMARY_HOVER_COLOR,
         ThemeConstants.DARK_THEME_PRIMARY_HOVER_COLOR
       )(props);
-      const color = mode('#121212', '#F8F8F8')(props);
+      const color = mode("#121212", "#F8F8F8")(props);
       return {
         bg,
         _active: {
@@ -39,7 +39,7 @@ const button = {
       };
     },
     danger: (props) => {
-      const color = mode('#121212', '#F8F8F8')(props);
+      const color = mode("#121212", "#F8F8F8")(props);
       const bg = mode(
         ThemeConstants.LIGHT_THEME_DANGER_COLOR,
         ThemeConstants.DARK_THEME_DANGER_COLOR

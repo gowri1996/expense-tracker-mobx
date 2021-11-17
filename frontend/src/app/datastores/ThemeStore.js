@@ -1,6 +1,6 @@
-import { makeObservable, observable } from 'mobx';
+import { makeObservable, observable } from "mobx";
 
-import themes from './themes';
+import themes from "./themes";
 
 class ThemeStore {
   internalTheme = themes;

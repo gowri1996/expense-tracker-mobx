@@ -1,16 +1,16 @@
-import './index.css';
+import "./index.css";
 
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-import { ChakraProvider } from '@chakra-ui/react';
-import { configure as MobxConfigure } from 'mobx';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { RootStoreProvider } from './app/datastores/RootStoreContext';
-import reportWebVitals from './reportWebVitals';
-import rootStore from './app/datastores/RootStore';
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import { configure as MobxConfigure } from "mobx";
+import React from "react";
+import ReactDOM from "react-dom";
+import { RootStoreProvider } from "./app/datastores/RootStoreContext";
+import reportWebVitals from "./reportWebVitals";
+import rootStore from "./app/datastores/RootStore";
 
 MobxConfigure({ enforceActions: true });
 
@@ -22,7 +22,7 @@ ReactDOM.render(
       </ChakraProvider>
     </BrowserRouter>
   </RootStoreProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
