@@ -16,19 +16,19 @@ const resetPasswordUserService = (request) => {
   });
 };
 
-const getUserFullDetails = () => {
+const getUserFullDetails = (token) => {
   return new Promise((resolve, reject) => {
     resolve();
   });
 };
 
-const refreshTokens = () => {
+const refreshTokens = (refreshToken) => {
   return new Promise((resolve, reject) => {
     resolve();
   });
 };
 
-const logoutUser = () => {
+const logoutUser = (token) => {
   return new Promise((resolve, reject) => {
     resolve();
   });
@@ -52,7 +52,7 @@ const deleteExpense = (request) => {
   });
 };
 
-const updateExpense = (expenseId, request) => {
+const updateExpense = (request) => {
   return new Promise((resolve, reject) => {
     resolve(request);
   });

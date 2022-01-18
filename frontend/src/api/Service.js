@@ -1,8 +1,8 @@
-import LiveService from "./live/LiveService";
-import MockService from "./mock/MockService";
+import LiveService from './live/LiveService';
+import MockService from './mock/MockService';
 
 const service =
-  process.env.REACT_APP_USE_LIVE_SERVICE === "true" ? LiveService : MockService;
+  process.env.REACT_APP_USE_LIVE_SERVICE === 'true' ? LiveService : MockService;
 
 const constructSuccessResponse = (result) => {
   return result;
@@ -24,16 +24,16 @@ const resetPasswordUserService = (request) => {
   return service.resetPasswordUserService(request);
 };
 
-const getUserFullDetails = () => {
-  return service.getUserFullDetails();
+const getUserFullDetails = (token) => {
+  return service.getUserFullDetails(token);
 };
 
-const refreshTokens = () => {
-  return service.refreshTokens();
+const refreshTokens = (refreshToken) => {
+  return service.refreshTokens(refreshToken);
 };
 
-const logoutUser = () => {
-  return service.logoutUser();
+const logoutUser = (token) => {
+  return service.logoutUser(token);
 };
 
 const getExpenseCategories = () => {
@@ -48,8 +48,8 @@ const deleteExpense = (request) => {
   return service.deleteExpense(request);
 };
 
-const updateExpense = (expenseId, request) => {
-  return service.updateExpense(expenseId, request);
+const updateExpense = (request) => {
+  return service.updateExpense(request);
 };
 
 const exportData = {

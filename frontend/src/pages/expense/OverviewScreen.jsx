@@ -10,18 +10,17 @@ import {
   Wrap,
   WrapItem,
   useToast,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+} from '@chakra-ui/react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import AppUtils from "../../utils/AppUtils";
-import Card from "../../components/card/Card";
-import CreateUpdateExpenseModal from "./overviewScreen/CreateUpdateExpenseModal";
-import DeleteExpenseModal from "./overviewScreen/DeleteExpenseModal";
-import ExpenseCard from "./overviewScreen/ExpenseCard";
-import { FaPlus } from "react-icons/fa";
-import { Helmet } from "react-helmet";
-import Service from "../../api/Service";
-import secureComponent from "../../components/SecureComponent";
+import AppUtils from '../../utils/AppUtils';
+import Card from '../../components/card/Card';
+import CreateUpdateExpenseModal from './overviewScreen/CreateUpdateExpenseModal';
+import DeleteExpenseModal from './overviewScreen/DeleteExpenseModal';
+import ExpenseCard from './overviewScreen/ExpenseCard';
+import { FaPlus } from 'react-icons/fa';
+import Service from '../../api/Service';
+import secureComponent from '../../components/SecureComponent';
 
 const OverviewScreen = (props) => {
   const [loading, setLoading] = useState(false);
@@ -45,7 +44,7 @@ const OverviewScreen = (props) => {
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: "Could not load categories",
+            title: 'Could not load categories',
             description: error.message,
           })
         );
@@ -55,33 +54,28 @@ const OverviewScreen = (props) => {
       });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const onSubmit = (expenseValues) => {
-    if (selectedExpense) updateExpense(selectedExpense._id, expenseValues);
-    else createExpense(expenseValues);
+  const onSubmit = (expense) => {
+    if (selectedExpense) updateExpense(selectedExpense._id, expense);
+    else createExpense(expense);
   };
 
-  const createExpense = (expenseValues) => {
+  const createExpense = (expense) => {
     setLoading(true);
     props.rootStore.userStore
-      .createExpense({
-        name: expenseValues.name,
-        expense: expenseValues.expense,
-        category: expenseValues.category,
-        description: expenseValues.description,
-      })
+      .createExpense(expense)
       .then(() => {
         setSelectedExpense(null);
         setCreateUpdateExpenseModalVisible(false);
         toast(
           AppUtils.successToastMessage({
-            title: "Expense created",
+            title: 'Expense created',
           })
         );
       })
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: "Expense cannot be added",
+            title: 'Expense cannot be added',
             description: error.message,
           })
         );
@@ -91,28 +85,23 @@ const OverviewScreen = (props) => {
       });
   };
 
-  const updateExpense = (expenseId, expenseValues) => {
+  const updateExpense = (expenseId, expense) => {
     setLoading(true);
     props.rootStore.userStore
-      .updateExpense(expenseId, {
-        name: expenseValues.name,
-        expense: expenseValues.expense,
-        category: expenseValues.category,
-        description: expenseValues.description,
-      })
+      .updateExpense({ expenseId, expense })
       .then(() => {
         setSelectedExpense(null);
         setCreateUpdateExpenseModalVisible(false);
         toast(
           AppUtils.successToastMessage({
-            title: "Expense updated",
+            title: 'Expense updated',
           })
         );
       })
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: "Expense cannot be updated",
+            title: 'Expense cannot be updated',
             description: error.message,
           })
         );
@@ -131,14 +120,14 @@ const OverviewScreen = (props) => {
         setDeleteExpenseModalVisible(false);
         toast(
           AppUtils.successToastMessage({
-            title: "Expense deleted",
+            title: 'Expense deleted',
           })
         );
       })
       .catch((error) => {
         toast(
           AppUtils.errorToastMessage({
-            title: "Expense cannot be deleted",
+            title: 'Expense cannot be deleted',
             description: error.message,
           })
         );
@@ -148,103 +137,102 @@ const OverviewScreen = (props) => {
       });
   };
 
+  const setupUpdate = useCallback((expense) => {
+    setSelectedExpense(expense);
+    setCreateUpdateExpenseModalVisible(true);
+  }, []);
+
+  const setupDelete = useCallback((expense) => {
+    setSelectedExpense(expense);
+    setDeleteExpenseModalVisible(true);
+  }, []);
+
   return (
-    <>
-      <Helmet>
-        <title>Overview | Expense Tracker</title>
-      </Helmet>
-      <Box>
-        <Flex>
-          <Box>
-            <Heading fontWeight={300} letterSpacing={0.5}>
-              Overview
-            </Heading>
-          </Box>
-          <Spacer />
-          <Box>
-            <Tooltip label="Create Expense" placement="left" fontSize="sm">
-              <IconButton
-                aria-label="createExpenseIcon"
-                icon={<FaPlus />}
-                size="md"
-                onClick={() => {
-                  setCreateUpdateExpenseModalVisible(true);
-                }}
+    <Box>
+      <Flex>
+        <Box>
+          <Heading fontWeight={300} letterSpacing={0.5}>
+            Overview
+          </Heading>
+        </Box>
+        <Spacer />
+        <Box>
+          <Tooltip label='Create Expense' placement='left' fontSize='sm'>
+            <IconButton
+              aria-label='createExpenseIcon'
+              icon={<FaPlus />}
+              size='md'
+              onClick={() => {
+                setCreateUpdateExpenseModalVisible(true);
+              }}
+            />
+          </Tooltip>
+        </Box>
+      </Flex>
+      {props.rootStore.userStore.expenses.length > 0 ? (
+        <Wrap mt={2} spacing='2'>
+          {props.rootStore.userStore.expenses.map((expense) => (
+            <WrapItem
+              key={expense._id}
+              width={{
+                xs: 'full',
+                sm: 'calc(calc((100% / 2)) - 20px)',
+                xl: 'calc(calc((100% / 3)) - 20px)',
+                xxl: 'calc(calc((100% / 3)) - 20px)',
+              }}
+            >
+              <ExpenseCard
+                data={expense}
+                width='full'
+                onUpdateExpenseClick={setupUpdate}
+                onDeleteExpenseClick={setupDelete}
               />
-            </Tooltip>
-          </Box>
-        </Flex>
-        {props.rootStore.userStore.expenses.length > 0 ? (
-          <Wrap mt={2} spacing="2">
-            {props.rootStore.userStore.expenses.map((expense) => (
-              <WrapItem
-                key={expense._id}
-                width={{
-                  xs: "full",
-                  sm: "calc(calc((100% / 2)) - 20px)",
-                  xl: "calc(calc((100% / 3)) - 20px)",
-                  xxl: "calc(calc((100% / 3)) - 20px)",
-                }}
-              >
-                <ExpenseCard
-                  data={expense}
-                  width="full"
-                  onUpdateExpenseClick={() => {
-                    setSelectedExpense(expense);
-                    setCreateUpdateExpenseModalVisible(true);
-                  }}
-                  onDeleteExpenseClick={() => {
-                    setSelectedExpense(expense);
-                    setDeleteExpenseModalVisible(true);
-                  }}
-                />
-              </WrapItem>
-            ))}
-          </Wrap>
-        ) : (
-          <Box
-            mt="15vh"
-            mx="auto"
-            width={{
-              xs: "70%",
-              sm: "70%",
-              md: "50%",
-            }}
-          >
-            <Card p={7}>
-              <Card.Content>
-                <Center>
-                  <Text>
-                    {`Hey ${props.rootStore.userStore.firstName}, add some expenses `}
-                    &#128512;
-                  </Text>
-                </Center>
-              </Card.Content>
-            </Card>
-          </Box>
-        )}
-        <CreateUpdateExpenseModal
-          visible={isCreateUpdateExpenseModalVisible}
-          expense={selectedExpense}
-          loading={loading}
-          categories={categories}
-          onSubmit={onSubmit}
-          onClose={() => {
-            setSelectedExpense(null);
-            setCreateUpdateExpenseModalVisible(false);
+            </WrapItem>
+          ))}
+        </Wrap>
+      ) : (
+        <Box
+          mt='15vh'
+          mx='auto'
+          width={{
+            xs: '70%',
+            sm: '70%',
+            md: '50%',
           }}
-        />
-        <DeleteExpenseModal
-          visible={isDeleteExpenseModalVisible}
-          loading={loading}
-          deleteExpense={deleteExpense}
-          onClose={() => {
-            setSelectedExpense(null);
-            setDeleteExpenseModalVisible(false);
-          }}
-        />
-      </Box>
-    </>
+        >
+          <Card p={7}>
+            <Card.Content>
+              <Center>
+                <Text>
+                  {`Hey ${props.rootStore.userStore.firstName}, add some expenses `}
+                  &#128512;
+                </Text>
+              </Center>
+            </Card.Content>
+          </Card>
+        </Box>
+      )}
+      <CreateUpdateExpenseModal
+        visible={isCreateUpdateExpenseModalVisible}
+        expense={selectedExpense}
+        loading={loading}
+        categories={categories}
+        onSubmit={onSubmit}
+        onClose={() => {
+          setSelectedExpense(null);
+          setCreateUpdateExpenseModalVisible(false);
+        }}
+      />
+      <DeleteExpenseModal
+        visible={isDeleteExpenseModalVisible}
+        loading={loading}
+        deleteExpense={deleteExpense}
+        onClose={() => {
+          setSelectedExpense(null);
+          setDeleteExpenseModalVisible(false);
+        }}
+      />
+    </Box>
   );
 };
 

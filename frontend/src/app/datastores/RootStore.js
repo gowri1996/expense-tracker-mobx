@@ -1,5 +1,5 @@
-import ThemeStore from "./ThemeStore";
-import UserStore from "./UserStore";
+import ThemeStore from './ThemeStore';
+import UserStore from './UserStore';
 
 class RootStore {
   constructor() {

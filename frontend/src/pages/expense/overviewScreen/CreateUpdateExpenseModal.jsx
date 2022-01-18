@@ -14,15 +14,15 @@ import {
   NumberInputField,
   Select,
   Textarea,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+} from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 
 const CreateUpdateExpenseModal = (props) => {
   const [expenseValues, setExpenseValues] = useState({
-    name: "",
+    name: '',
     expense: 0,
-    category: "",
-    description: "",
+    category: '',
+    description: '',
   });
 
   useEffect(() => {
@@ -36,14 +36,14 @@ const CreateUpdateExpenseModal = (props) => {
         });
       } else {
         props.categories.length > 0 &&
-          handleFormInputChange("category", props.categories[0]._id);
+          handleFormInputChange('category', props.categories[0]._id);
       }
     } else {
       setExpenseValues({
-        name: "",
+        name: '',
         expense: 0,
-        category: "",
-        description: "",
+        category: '',
+        description: '',
       });
     }
   }, [props.visible]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -68,18 +68,18 @@ const CreateUpdateExpenseModal = (props) => {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          {props.expense ? "Update Expense" : "Create Expense"}
+          {props.expense ? 'Update Expense' : 'Create Expense'}
         </ModalHeader>
         <ModalCloseButton isDisabled={props.loading} />
         <ModalBody>
-          <Box p={4} textAlign="left">
+          <Box p={4} textAlign='left'>
             <form onSubmit={onSubmit}>
               <FormControl isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input
-                  name="name"
+                  name='name'
                   value={expenseValues.name}
-                  placeholder="Expense name"
+                  placeholder='Expense name'
                   onChange={(evt) =>
                     handleFormInputChange(
                       evt.currentTarget.name,
@@ -93,9 +93,9 @@ const CreateUpdateExpenseModal = (props) => {
                 <NumberInput
                   min={0}
                   value={expenseValues.expense}
-                  placeholder="Expense amount"
+                  placeholder='Expense amount'
                   onChange={(value) => {
-                    handleFormInputChange("expense", Number(value));
+                    handleFormInputChange('expense', Number(value));
                   }}
                 >
                   <NumberInputField />
@@ -104,7 +104,7 @@ const CreateUpdateExpenseModal = (props) => {
               <FormControl mt={2} isRequired>
                 <FormLabel>Category</FormLabel>
                 <Select
-                  name="category"
+                  name='category'
                   value={expenseValues.category}
                   onChange={(evt) => {
                     handleFormInputChange(
@@ -123,8 +123,8 @@ const CreateUpdateExpenseModal = (props) => {
               <FormControl mt={2}>
                 <FormLabel>Description</FormLabel>
                 <Textarea
-                  name="description"
-                  placeholder="Description for your expense"
+                  name='description'
+                  placeholder='Description for your expense'
                   value={expenseValues.description}
                   onChange={(evt) =>
                     handleFormInputChange(
@@ -134,17 +134,17 @@ const CreateUpdateExpenseModal = (props) => {
                   }
                 />
               </FormControl>
-              <Box mt={7} textAlign="center">
+              <Box mt={7} textAlign='center'>
                 <Button
-                  variant="danger"
+                  variant='danger'
                   mr={5}
                   onClick={props.onClose}
                   isDisabled={props.loading}
                 >
                   Close
                 </Button>
-                <Button type="submit" isLoading={props.loading}>
-                  {props.expense ? "Update" : "Create"}
+                <Button type='submit' isLoading={props.loading}>
+                  {props.expense ? 'Update' : 'Create'}
                 </Button>
               </Box>
             </form>

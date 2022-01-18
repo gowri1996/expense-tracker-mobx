@@ -1,37 +1,35 @@
-import { Box, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 
-import AppUtils from "../utils/AppUtils";
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import isEmpty from "lodash.isempty";
-import { useLocation } from "react-router-dom";
-import { withContext } from "../app/datastores/RootStoreContext";
+import AppUtils from '../utils/AppUtils';
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { withContext } from '../app/datastores/RootStoreContext';
 
 const Navbar = (props) => {
   const location = useLocation();
-  const bgColor = useColorModeValue("#FCFCFC", "#181818");
-  const selectedPathBgColor = useColorModeValue("#EDEEEF", "#080808");
+  const bgColor = useColorModeValue('#FCFCFC', '#181818');
+  const selectedPathBgColor = useColorModeValue('#EDEEEF', '#080808');
 
-  if (isEmpty(props.rootStore.userStore._id)) return <></>;
   return (
-    <Box as="nav" bg={bgColor} {...props.styles}>
+    <Box as='nav' bg={bgColor} {...props.styles}>
       <Box
         display={{
-          xs: "none",
-          sm: "none",
-          md: "none",
-          lg: "none",
-          xl: "none",
-          xxl: "block",
+          xs: 'none',
+          sm: 'none',
+          md: 'none',
+          lg: 'none',
+          xl: 'none',
+          xxl: 'block',
         }}
       >
-        <Stack direction="column" alignItems="flex-start" spacing="25">
+        <Stack direction='column' alignItems='flex-start' spacing='25'>
           {AppUtils.getNavLinks().map((nav) => {
             return (
               <Box
                 py={2}
                 px={2}
-                width="full"
+                width='full'
                 borderRadius={5}
                 key={nav.ROUTE}
                 as={RouterLink}
@@ -42,8 +40,8 @@ const Navbar = (props) => {
                     : undefined
                 }
               >
-                <Text float="left">{nav.TEXT}</Text>
-                <Text float="right">
+                <Text float='left'>{nav.TEXT}</Text>
+                <Text float='right'>
                   {props.rootStore.userStore.expenses.length}
                 </Text>
               </Box>
@@ -53,22 +51,22 @@ const Navbar = (props) => {
       </Box>
       <Box
         display={{
-          xs: "none",
-          sm: "none",
-          md: "block",
-          lg: "block",
-          xl: "block",
-          xxl: "none",
+          xs: 'none',
+          sm: 'none',
+          md: 'block',
+          lg: 'block',
+          xl: 'block',
+          xxl: 'none',
         }}
       >
         {/* TODO Images for nav bar links */}
-        <Stack direction="column" alignItems="flex-start" spacing="25">
+        <Stack direction='column' alignItems='flex-start' spacing='25'>
           {AppUtils.getNavLinks().map((nav) => {
             return (
               <Box
                 py={2}
                 px={2}
-                width="full"
+                width='full'
                 borderRadius={5}
                 key={nav.ROUTE}
                 as={RouterLink}
@@ -79,7 +77,7 @@ const Navbar = (props) => {
                     : undefined
                 }
               >
-                <Text float="left">{nav.SHORT_TEXT}</Text>
+                <Text float='left'>{nav.SHORT_TEXT}</Text>
               </Box>
             );
           })}
@@ -87,21 +85,21 @@ const Navbar = (props) => {
       </Box>
       <Box
         display={{
-          xs: "block",
-          sm: "block",
-          md: "none",
-          lg: "none",
-          xl: "none",
-          xxl: "none",
+          xs: 'block',
+          sm: 'block',
+          md: 'none',
+          lg: 'none',
+          xl: 'none',
+          xxl: 'none',
         }}
       >
         {/* TODO Images for nav bar links */}
-        <Stack direction="row" alignItems="flex-start" spacing="10">
+        <Stack direction='row' alignItems='flex-start' spacing='10'>
           {AppUtils.getNavLinks().map((nav) => {
             return (
               <Box
                 py={1}
-                width="full"
+                width='full'
                 borderRadius={5}
                 key={nav.ROUTE}
                 as={RouterLink}
@@ -112,7 +110,7 @@ const Navbar = (props) => {
                     : undefined
                 }
               >
-                <Text textAlign="center">{nav.SHORT_TEXT}</Text>
+                <Text textAlign='center'>{nav.SHORT_TEXT}</Text>
               </Box>
             );
           })}

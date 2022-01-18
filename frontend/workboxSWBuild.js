@@ -1,11 +1,11 @@
-const workbox = require("workbox-build");
+const workbox = require('workbox-build');
 
-console.log("Generating SW started");
+console.log('Generating SW started');
 
 workbox.generateSW({
-  globDirectory: "build/",
-  globPatterns: ["**/*.{jpg,jpeg,png}"],
-  swDest: "build/sw.js",
+  globDirectory: 'build/',
+  globPatterns: ['**/*.{jpg,jpeg,png}'],
+  swDest: 'build/sw.js',
 });
 
-console.log("Generating SW Ended");
+console.log('Generating SW Ended');

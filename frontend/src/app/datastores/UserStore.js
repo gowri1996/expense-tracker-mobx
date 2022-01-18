@@ -4,12 +4,12 @@ import {
   makeObservable,
   observable,
   runInAction,
-} from "mobx";
+} from 'mobx';
 
-import ExpenseStore from "./ExpenseStore";
-import Service from "../../api/Service";
-import { deleteToken } from "../../utils/AuthUtils";
-import isEmpty from "lodash.isempty";
+import ExpenseStore from './ExpenseStore';
+import Service from '../../api/Service';
+import { deleteToken } from '../../utils/AuthUtils';
+import isEmpty from 'lodash.isempty';
 
 class UserStore {
   _id = null;
@@ -17,6 +17,8 @@ class UserStore {
   lastName = null;
   email = null;
   expenses = [];
+  token = null;
+  refreshToken = null;
 
   rootStore = null;
 
@@ -29,6 +31,8 @@ class UserStore {
       lastName: observable,
       email: observable,
       expenses: observable,
+      token: observable,
+      refreshToken: observable,
 
       name: computed,
       setUser: action,
@@ -42,7 +46,7 @@ class UserStore {
   }
 
   get name() {
-    return this.firstName + " " + this.lastName;
+    return this.firstName + ' ' + this.lastName;
   }
 
   resetUser = () => {
@@ -51,17 +55,18 @@ class UserStore {
     this.lastName = null;
     this.email = null;
     this.expenses = [];
+    this.token = null;
+    this.refreshToken = null;
   };
 
   setUser = (user) => {
-    if (isEmpty(user)) return;
-
-    if (!isEmpty(user._id)) this._id = user._id;
-    if (!isEmpty(user.firstName)) this.firstName = user.firstName;
-    if (!isEmpty(user.lastName)) this.lastName = user.lastName;
-    if (!isEmpty(user.email)) this.email = user.email;
-    if (!isEmpty(user.expenses))
-      this.expenses = this.constructExpenses(user.expenses);
+    this._id = user._id;
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
+    this.email = user.email;
+    this.expenses = this.constructExpenses(user.expenses);
+    this.token = user.token;
+    this.refreshToken = user.refreshToken;
   };
 
   constructExpenses = (userExpenses) => {
@@ -105,9 +110,12 @@ class UserStore {
     );
   };
 
-  getFullDetails = async () => {
-    return Service.getUserFullDetails().then(
+  getFullDetails = async (token) => {
+    return Service.getUserFullDetails(token).then(
       (response) => {
+        runInAction(() => {
+          this.setUser(response.data);
+        });
         return Service.constructSuccessResponse(response);
       },
       (error) => {
@@ -116,9 +124,12 @@ class UserStore {
     );
   };
 
-  refreshTokens = async () => {
-    return Service.refreshTokens().then(
+  refreshTokens = async (refreshToken) => {
+    return Service.refreshTokens(refreshToken).then(
       (response) => {
+        runInAction(() => {
+          this.setUser(response.data);
+        });
         return Service.constructSuccessResponse(response);
       },
       (error) => {
@@ -128,12 +139,11 @@ class UserStore {
   };
 
   logoutUser = async () => {
-    return Service.logoutUser().then(
+    return Service.logoutUser(this.token).then(
       (response) => {
         runInAction(() => {
           this.resetUser();
         });
-        deleteToken();
         return Service.constructSuccessResponse(response);
       },
       (error) => {
@@ -142,8 +152,8 @@ class UserStore {
     );
   };
 
-  createExpense = async (request) => {
-    return Service.createExpense(request).then(
+  createExpense = async (expense) => {
+    return Service.createExpense({ expense, token: this.token }).then(
       (response) => {
         runInAction(() => {
           this.expenses.push(new ExpenseStore(response.data));
@@ -156,11 +166,10 @@ class UserStore {
     );
   };
 
-  deleteExpense = async (request) => {
-    return Service.deleteExpense(request).then(
+  deleteExpense = async (expenseId) => {
+    return Service.deleteExpense({ expenseId, token: this.token }).then(
       (response) => {
         runInAction(() => {
-          const expenseId = request;
           this.expenses.splice(
             this.expenses.findIndex((expense) => expense._id === expenseId),
             1
@@ -174,8 +183,8 @@ class UserStore {
     );
   };
 
-  updateExpense = async (expenseId, request) => {
-    return Service.updateExpense(expenseId, request).then(
+  updateExpense = async (request) => {
+    return Service.updateExpense({ ...request, token: this.token }).then(
       (response) => {
         runInAction(() => {
           const expense = this.expenses.find(
