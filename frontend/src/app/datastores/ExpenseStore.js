@@ -1,7 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
 
-import { isEmpty } from 'lodash';
-
 class ExpenseStore {
   _id = null;
   name = null;

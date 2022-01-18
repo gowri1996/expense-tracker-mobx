@@ -8,8 +8,6 @@ import {
 
 import ExpenseStore from './ExpenseStore';
 import Service from '../../api/Service';
-import { deleteToken } from '../../utils/AuthUtils';
-import isEmpty from 'lodash.isempty';
 
 class UserStore {
   _id = null;
